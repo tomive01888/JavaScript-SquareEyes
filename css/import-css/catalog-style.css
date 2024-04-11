@@ -30,21 +30,23 @@
     flex-direction: column;
     gap: 10px;
     max-height: fit-content;
-}
 
-.movies-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: fill;
+    img {
+        width: 100%;
+        height: 550px;
+        object-fit: fill;
 
-    @media (min-width: 680px) {
-        height: 320px;
+        @media (min-width: 680px) {
+            height: 320px;
 
+        }
     }
-}
 
-.movies-card p {
-    font-weight: 700;
+    p {
+        font-weight: 700;
+    }
+
+
 }
 
 .flex-sale {
@@ -52,19 +54,18 @@
     justify-content: flex-end;
     gap: 1rem;
     align-items: flex-end;
-}
 
+    .on-sale {
+        color: red;
+        text-decoration: line-through;
+        font-size: 0.85rem;
 
+    }
 
-.flex-sale .on-sale {
-    color: red;
-    text-decoration: line-through;
-    font-size: 0.85rem;
+    .current-price {
+        font-size: 1.1rem;
+        color: rgb(255, 255, 255);
 
-}
-
-.flex-sale .current-price {
-    font-size: 1.1rem;
-    color: rgb(255, 255, 255);
+    }
 
 }
