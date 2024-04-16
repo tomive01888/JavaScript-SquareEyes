@@ -3,38 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>SquareEyes Movies</title>
+    <link rel="icon" type="image/x-icon" href="./favicon-32x32.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./css/global.css" />
   </head>
   <body>
     <header>
       <div class="container">
-        <img src="./SquareEyes_Logo.png" alt="Square Eyes logo" />
+        <a href="/" class="homelink">
+          <img src="./SquareEye.png" alt="square box with eye inside" />
+          <img src="./SquareEye.png" alt="square box with eye inside" /> Square
+          Eyes</a
+        >
         <nav>
           <a href="/">Home</a>
-          <a href="">Cart</a>
+          <a href="./checkout/index.html">Cart</a>
         </nav>
       </div>
     </header>
 
     <main>
       <div class="container">
-        <div class="btn-layout">
-          <button class="browse-all btn-style">Browse All</button>
-          <button class="action btn-style">Action</button>
-          <button class="comedies btn-style">Comedies</button>
-          <button class="kids btn-style">Kids</button>
-          <button class="horror btn-style">Horror</button>
-          <button class="drama btn-style">Drama</button>
+        <div>
+          <select class="genre-selector">
+            <option selected value="all">All genres</option>
+            <option value="action">Action</option>
+            <option value="drama">Drama</option>
+            <option value="comedy">Comedy</option>
+            <option value="horror">Horror</option>
+            <option value="kids">Kids</option>
+          </select>
         </div>
-        <div class="movies"></div>
+        <div class="movies">
+          <div class="loader"></div>
+        </div>
+
       </div>
     </main>
 
     <footer>
       <div class="container">
         <div>
-          <p>Hello World!</p>
+          <p>Trademarks all reserved Square Eyes</p>
         </div>
       </div>
     </footer>

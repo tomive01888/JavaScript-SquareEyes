@@ -1,51 +1,95 @@
-// import { getToken, getApiKey } from "./api.js"
-
-const baseURL = "https://v2.api.noroff.dev/rainy-days/"
+const baseURL = "https://v2.api.noroff.dev/square-eyes/"
 
 const moviesContainer = document.querySelector(".movies")
 
-const filterBrowseAll = document.querySelector(".browse-all")
+const selectOption = document.querySelector(".genre-selector")
 
-const filterAction = document.querySelector(".action")
+let movies = []
 
-const filterComedies = document.querySelector(".comedies")
+let genre = ""
 
-const filterKids = document.querySelector(".kids")
-
-const filterHorror = document.querySelector(".horror")
-
-const filterDrama = document.querySelector(".drama")
+let loadingEyes = setTimeout(getMovies, 2000)
 
 async function getMovies(){
 
-  const req = await fetch(baseURL)
+ const req = await fetch(baseURL)
 
-  const result = await req.json()  
+ console.log(req)
 
-  for (let i = 0; i < result.data.length; i++){
-    moviesContainer.innerHTML += `<a class="movies-card" href="/html/product.html?jacketid=${result.data[i].id}">
+ if (req.ok){
+  const result = await req.json()
 
-                          <div class="flex-sale">
-                            <p class="${result.data[i].onSale ? "on-sale" : ""}">${result.data[i].onSale ? result.data[i].price : ""}</p>
-                            <p class="current-price">$ ${result.data[i].onSale ? result.data[i].discountedPrice : result.data[i].price} </p>
-                          </div>
+  movies = result.data
+ 
+  console.log("DATA INNMAT" ,movies)
+  
+  moviesContainer.innerHTML = ""
 
-                          <img src="${result.data[i].image.url}" alt="${result.data[i].title}"/>
-                          <p>${result.data[i].title}</p>
-      </a>`
-  }
-  console.log("DATA INNMAT" , result)
+  for (let i = 0; i < movies.length; i++){   
+    moviesContainer.innerHTML +=  createHTML(movies[i])  
+   }
+
+ } else {
+
+  moviesContainer.innerHTML = ""
+
+  moviesContainer.innerHTML += `
+
+  <div class="error">
+              <p>Error: while fetching data</p>
+              <p>Status code: ${req.status} </p>
+  </div> 
+  
+  `  
+ }
+
+ 
+}
+// getMovies()
+
+for (let i = 0; i < movies.length; i++){   
+  moviesContainer.innerHTML +=  createHTML(movies[i]) 
+
 }
 
-getMovies()
+selectOption.addEventListener("input", filteredByGenres)
 
+function filteredByGenres(event) {  
 
-// async function filterAction(){
+ let selectedGenre = event.target.value
 
-//   const actionMovie = result.filter(data => data.genre === 'action')
+ if(selectedGenre === "all"){
+  moviesContainer.innerHTML = ""
 
-//   console.log(actionMovie)
+  for (let i = 0; i < movies.length; i++){   
+    moviesContainer.innerHTML +=  createHTML(movies[i]) 
+  }
+  return 
+ }
 
-// }
+ let filteredMovies = movies.filter(movie => movie.genre.toLowerCase() === selectedGenre.toLowerCase())
 
+ moviesContainer.innerHTML = ""
 
+ for (let i = 0; i < filteredMovies.length; i++){   
+    moviesContainer.innerHTML +=  createHTML(filteredMovies[i]) 
+    console.log(filteredMovies[i])
+  }
+
+}
+
+function createHTML(movie) {  
+
+   let html = `<a class="movies-card" href="/product/index.html?movieid=${movie.id}">
+            ${movie.favorite ? "<span class='trending'> Trending </span>" : ""}
+            <div class="flex-sale">
+              <p class="${movie.onSale ? "on-sale" : ""}">${movie.onSale ? movie.price : ""}</p>
+              <p class="current-price">$ ${movie.onSale ? movie.discountedPrice : movie.price} </p>
+            </div>
+
+            <img src="${movie.image.url}" alt="${movie.title}"/>
+            <p class="title">${movie.title}</p>
+    </a>`
+
+    return html
+}
