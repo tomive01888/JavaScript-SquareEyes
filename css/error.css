@@ -1,0 +1,14 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: 100%;
+
+    * {
+        color: white;
+        margin: 0 auto;
+        width: 360px;
+
+    }
+
+}

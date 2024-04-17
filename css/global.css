@@ -1,7 +1,11 @@
-@import url(./item-cards.css);
+@import url(./item-card.css);
 @import url(./genre-selector.css);
-@import url(./single-item.css);
+@import url(./single-product.css);
 @import url(./loading.css);
+@import url(./3-item-shown.css);
+@import url(./favorite-ribbon.css);
+@import url(./error.css);
+@import url(./cart.css);
 
 
 * {
@@ -11,12 +15,14 @@
 }
 
 body {
+    width: 100%;
     min-height: 100vh;
     max-height: fit-content;
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     background-image: linear-gradient(rgb(37, 37, 37), rgb(73, 73, 73), rgb(27, 27, 27));
+    overflow-x: hidden;
 
 }
 
@@ -25,7 +31,7 @@ header {
     max-width: 92rem;
     margin: 0 auto;
 
-    .container {
+    .wrapper {
         max-width: 90rem;
         display: flex;
         flex-direction: row;
@@ -58,6 +64,7 @@ nav {
 
     @media (max-width: 769px) {
         display: none;
+        overflow: hidden;
     }
 
     a {
@@ -74,7 +81,13 @@ nav {
     }
 
     a:last-child {
-        background-color: rgb(10, 203, 135);
+        font-size: 10px;
+
+    }
+
+    a:hover {
+        background-color: rgb(213, 213, 213);
+        color: black;
     }
 
 }
@@ -92,6 +105,7 @@ main {
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        color: white;
     }
 }
 
@@ -104,4 +118,13 @@ footer {
     p {
         color: white;
     }
+}
+
+.shop-cart {
+    display: flex;
+    flex-direction: column;
+}
+
+.fa-cart-shopping {
+    font-size: 20px;
 }

@@ -50,34 +50,9 @@
     background-color: rgba(255, 255, 255, 0.766);
     border-radius: 5px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .fa-star {
     color: gold;
-}
-
-.random-picks {
-    display: flex;
-    gap: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-
-@media (max-width: 990px) {
-    .movie-detail {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        img {
-            max-width: 90%;
-        }
-
-        .divider {
-            max-width: 90%;
-        }
-
-    }
 }

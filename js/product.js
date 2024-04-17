@@ -1,3 +1,6 @@
+import { createHTML, createSmallCard } from "./create-card.js"
+
+
 const baseURL = "https://v2.api.noroff.dev/square-eyes/"
 
 const movieContainerImage = document.querySelector(".movie-img")
@@ -53,44 +56,36 @@ async function getMovieDetail() {
 </div>`
 
 }
-
 getMovieDetail()
 
 addCartBtn.addEventListener("click", addToCart)
 
 function addToCart(){
 
-  const movieToAdd = { 
+  let quantity = 0
+
+  let movieToAdd = { 
+    image: movieDetail.data.image.url,
     title: movieDetail.data.title,
     price: movieDetail.data.onSale ? movieDetail.data.discountedPrice : movieDetail.data.price,
+    quantity: quantity,
   }
 
   const isMovieInCart = itemInCart(localStorageList, movieDetail.data.title)
 
-  console.log("is it tho?", isMovieInCart)
+  if(!isMovieInCart){
 
-  if(isMovieInCart){
-
-    console.log("is movie in cart")
-
-    const filteredList = localStorageList.filter((movie) => movie.title !==  movieToAdd.title)
-
-    localStorageList = filteredList
+    localStorageList.push({...movieToAdd, quantity:quantity+1})
 
     localStorage.setItem("movieitem", JSON.stringify(localStorageList))
 
-    addCartBtn.innerHTML = `<i class='fa-solid fa-plus'></i> Add to cart`
+  } 
+  else {    
+    const findIndex = localStorageList.findIndex(movie => movie.title === movieDetail.data.title)
 
-
-  } else {
-
-    console.log("else")
-    
-    localStorageList.push(movieToAdd)
+    localStorageList[findIndex].quantity++
 
     localStorage.setItem("movieitem", JSON.stringify(localStorageList))
-
-    addCartBtn.innerHTML = `<i class='fa-solid fa-minus'></i> Remove from cart`
   } 
 };
 
@@ -113,7 +108,7 @@ function getFromStorage(key) {
   return JSON.parse(savedInStorage)
 }
 
-async function getMovies(){
+async function filterOutCurrent(){
 
   const req = await fetch(baseURL)
  
@@ -124,13 +119,11 @@ async function getMovies(){
    
    randomPickDiv.innerHTML = ""
 
-   const removeFromRandom = movies.filter(movie => movie.title !== movieDetail.data.title)
+   const newFilteredWithoutCurrent = movies.filter(movie => movie.id !== movieId)
 
-   function yesSir(){
+   function getThreeRandomNumbers(){
 
-    let max = removeFromRandom.length
-
-
+    let max = newFilteredWithoutCurrent.length
     let randomNumArr = []
     let numberOfDisplayedMovies = 3
 
@@ -146,20 +139,15 @@ async function getMovies(){
     }
 
     return randomNumArr    
-
    }
    
-   const threeRandomNumbers = yesSir()
+   const threeRandomNumbers = getThreeRandomNumbers()
 
-   console.log("asdasdaasdasdadasdad", threeRandomNumbers)
+    for ( let i = 0; i < threeRandomNumbers.length; i++){
 
+      let indexFromRandomArr =  threeRandomNumbers[i] 
 
-
-    for ( let i = 0; i < threeRandomNumbers; i++){
-
-      console.log("asdasda", removeFromRandom[i])
-
-      randomPickDiv.innerHTML += createHTML(removeFromRandom[i])
+      randomPickDiv.innerHTML += createSmallCard(newFilteredWithoutCurrent[indexFromRandomArr])
     }
   } else{
  
@@ -173,25 +161,6 @@ async function getMovies(){
    </div> 
    
    `  
-  }
- 
-  
+  }  
  }
-
- getMovies()
-
- function createHTML(movie) {
-
-  let html = `<a class="movies-card" href="/product/index.html?movieid=${movie.id}">
-           ${movie.favorite ? "<span class='trending'> Trending </span>" : ""}
-           <div class="flex-sale">
-             <p class="${movie.onSale ? "on-sale" : ""}">${movie.onSale ? movie.price : ""}</p>
-             <p class="current-price">$ ${movie.onSale ? movie.discountedPrice : movie.price} </p>
-           </div>
-
-           <img src="${movie.image.url}" alt="${movie.title}"/>
-           <p class="title">${movie.title}</p>
-   </a>`
-
-   return html
-}
+ filterOutCurrent()

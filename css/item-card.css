@@ -43,8 +43,8 @@
     }
 
     img {
-        width: 100%;
-        aspect-ratio: 12/18;
+        width: 240px;
+        height: 350px;
 
     }
 
@@ -80,4 +80,15 @@
     font-size: 14px;
 
 
+}
+
+.smallcard {
+
+    max-height: auto;
+
+    img {
+        height: 280px;
+        aspect-ratio: 1/1.5;
+
+    }
 }

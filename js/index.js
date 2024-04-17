@@ -1,54 +1,41 @@
-const baseURL = "https://v2.api.noroff.dev/square-eyes/"
+import { createHTML } from "./create-card.js"
+import { getMovies } from "./fetch-movies.js"
+
+ 
 
 const moviesContainer = document.querySelector(".movies")
-
 const selectOption = document.querySelector(".genre-selector")
+const errorContainer = document.querySelector(".container")
 
 let movies = []
 
-let genre = ""
 
-let loadingEyes = setTimeout(getMovies, 2000)
+const allMovies = await getMovies()
 
-async function getMovies(){
+console.log("errrrror", allMovies.error)
 
- const req = await fetch(baseURL)
 
- console.log(req)
+if(allMovies.error === false){
 
- if (req.ok){
-  const result = await req.json()
+  console.log(allMovies)
 
-  movies = result.data
- 
-  console.log("DATA INNMAT" ,movies)
-  
-  moviesContainer.innerHTML = ""
-
-  for (let i = 0; i < movies.length; i++){   
-    moviesContainer.innerHTML +=  createHTML(movies[i])  
-   }
-
- } else {
+  movies = allMovies.movies.data
 
   moviesContainer.innerHTML = ""
 
-  moviesContainer.innerHTML += `
+ for(let i = 0; i < movies.length; i++){   
+      moviesContainer.innerHTML +=  createHTML(movies[i])  
+     }
 
-  <div class="error">
-              <p>Error: while fetching data</p>
-              <p>Status code: ${req.status} </p>
-  </div> 
-  
-  `  
- }
+} else{
+  errorContainer.innerHTML = ""
 
- 
-}
-// getMovies()
+  errorContainer.innerHTML += `<div class="error">
+                <h1>${allMovies.msg}</h1>
+                <p>Error status: ${allMovies.status}</p>
+                <p>Something went wrong</p>
 
-for (let i = 0; i < movies.length; i++){   
-  moviesContainer.innerHTML +=  createHTML(movies[i]) 
+    </div>`;
 
 }
 
@@ -76,20 +63,4 @@ function filteredByGenres(event) {
     console.log(filteredMovies[i])
   }
 
-}
-
-function createHTML(movie) {  
-
-   let html = `<a class="movies-card" href="/product/index.html?movieid=${movie.id}">
-            ${movie.favorite ? "<span class='trending'> Trending </span>" : ""}
-            <div class="flex-sale">
-              <p class="${movie.onSale ? "on-sale" : ""}">${movie.onSale ? movie.price : ""}</p>
-              <p class="current-price">$ ${movie.onSale ? movie.discountedPrice : movie.price} </p>
-            </div>
-
-            <img src="${movie.image.url}" alt="${movie.title}"/>
-            <p class="title">${movie.title}</p>
-    </a>`
-
-    return html
 }

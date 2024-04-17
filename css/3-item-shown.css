@@ -1,0 +1,44 @@
+.constraint {
+    overflow-x: hidden;
+    margin: 0 auto;
+    color: white;
+    padding: 1rem;
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+}
+
+.random-picks {
+    display: flex;
+    gap: 2rem;
+    /* max-width: 750px; */
+
+    @media (max-width: 767px) {
+
+        min-width: 360px;
+        overflow-x: scroll;
+        max-width: 450px;
+        padding-right: 100px;
+    }
+
+}
+
+
+@media (max-width: 990px) {
+    .movie-detail {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            max-width: 90%;
+        }
+
+        .divider {
+            max-width: 90%;
+        }
+
+    }
+}
