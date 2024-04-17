@@ -1,18 +1,23 @@
 .movies {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 1rem;
+    column-gap: 0.5rem;
     row-gap: 2rem;
+    width: 100%;
 
-    @media (min-width:480px) {
+    @media (min-width: 610px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 840px) {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    @media (min-width:680px) {
+    @media (min-width: 1130px) {
         grid-template-columns: repeat(4, 1fr);
     }
 
-    @media (min-width:980px) {
+    @media (min-width: 1415px) {
         grid-template-columns: repeat(5, 1fr);
     }
 }
@@ -21,10 +26,9 @@
 .movies-card {
     background-color: #282828a9;
     margin: 0 auto;
-    max-width: 300px;
+    width: max-content;
     text-decoration: none;
     color: white;
-    padding: 10px 0;
     border: 1px solid rgba(121, 121, 121, 0.547);
     border-radius: 8px;
     box-shadow: 2px 2px 5px black;
@@ -43,27 +47,16 @@
     }
 
     img {
-        width: 240px;
-        height: 350px;
+        width: 280px;
+        height: 390px;
 
     }
 
     .title {
-        font-size: clamp(1rem);
-        min-height: 40px;
-        padding: 10px;
+        font-size: 1rem;
         text-align: center;
+        text-wrap: wrap
     }
-
-    .trending {
-        position: absolute;
-        bottom: 25%;
-        background-color: black;
-        font-size: 26px;
-
-    }
-
-
 }
 
 .movies-card:hover {
@@ -72,14 +65,10 @@
     border: 1px solid rgb(121, 121, 121);
 }
 
-
-
 .on-sale {
     color: red;
     text-decoration: line-through;
     font-size: 14px;
-
-
 }
 
 .smallcard {

@@ -11,13 +11,6 @@ export function createCartItem(arr){
 
     cardWrapper.innerHTML = ""
 
-    if(arr.length === 0){
-
-      return []
-
-
-    }
-
     if(arr.length > 0){
     
       for(let i = 0; i < arr.length; i++){ 
@@ -53,7 +46,6 @@ export function createCartItem(arr){
         const buttonMinus = document.createElement("button")
         buttonMinus.classList.add('minus')
         buttonMinus.textContent = "-"
-        buttonMinus.dataset.action = 'decrease'
         quantityWrapper.appendChild(buttonMinus)
         buttonMinus.addEventListener("click", removeOneFromCart)
     
@@ -67,22 +59,20 @@ export function createCartItem(arr){
         const buttonPlus = document.createElement("button")
         buttonPlus.classList.add('plus')
         buttonPlus.textContent = "+"
-        buttonPlus.dataset.action = 'increase'
         quantityWrapper.appendChild(buttonPlus);
-        buttonPlus.addEventListener("click", removeOneFromCart)
+        buttonPlus.addEventListener("click", addOneToCart)
     
         //
         const moviePrice = document.createElement("p")
-        moviePrice.textContent = "$" + Math.round(arr[i].price * arr[i].quantity * 100) / 100
+        moviePrice.textContent = "$" + Number(arr[i].price).toFixed(2) * arr[i].quantity
         moviePrice.classList.add('price')    
         containerSecond.appendChild(moviePrice)
     
         const movieRemoveAll = document.createElement("button")
         movieRemoveAll.classList.add('remove-from-cart')
         movieRemoveAll.textContent = "X"
-        movieRemoveAll.dataset.title = arr[i].title    
+        movieRemoveAll.dataset.target = arr[i].title    
         containerSecond.appendChild(movieRemoveAll);
-        movieRemoveAll.addEventListener('click', deleteFromCart)
     
         cardWrapper.appendChild(movieWrapper)
     
@@ -99,110 +89,71 @@ export function createCartItem(arr){
 
 function removeOneFromCart(event){
 
-  const actionType = event.target.dataset.action
-  console.log("action",actionType)
+  const title = event.target.nextSibling.dataset.title
+  const amount = Number(event.target.nextSibling.dataset.quantity)
 
-  const title = actionType === 'decrease' ? event.target.nextSibling.dataset.title : event.target.previousSibling.dataset.title
-  const amount = actionType === 'decrease' ? Number(event.target.nextSibling.dataset.quantity) : Number(event.target.previousSibling.dataset.quantity) 
-  switch (actionType) {
-    case 'increase':
+  console.log("minus",title, amount)
 
-    console.log("opp kvanta")
+  if(localStorageList.length === 1 && amount === 1){
 
-    cardWrapper.innerHTML = ""
-
-    let findTitle = localStorageList.findIndex(movie => movie.title === title)
-
-    localStorageList[findTitle].quantity++
-
-    localStorage.setItem("movieitem", JSON.stringify(localStorageList))
-
-    let cartHtml = createCartItem(localStorageList)
-
-    cartContainer.appendChild(cartHtml)
-
-      
-      break;
-
-    //
-    case 'decrease':
-    
-    if(localStorageList.length === 1 && amount === 1){
-
-      cardWrapper.innerHTML = ""
-      localStorage.clear("movieitem");
-      cartContainer.innerHTML = "Your cart is empty";
-
-      return
-
-    }
-
-    if(amount === 1){
-
-      cardWrapper.innerHTML = ""
-
-      const filterOut = localStorageList.filter(movie => movie.title !== title)
-
-      console.log(filterOut)
-
-      localStorageList = filterOut
-
-      localStorage.setItem("movieitem", JSON.stringify(localStorageList))
-
-      const html = createCartItem(localStorageList)
-
-      cartContainer.appendChild(html)
-
-      return 
-
-    }
-
-      console.log("log222")
-
-      cardWrapper.innerHTML = ""
-
-      let findIndex = localStorageList.findIndex(movie => movie.title === title)
-
-      localStorageList[findIndex].quantity--
-
-      localStorage.setItem("movieitem", JSON.stringify(localStorageList))
-
-      let html = createCartItem(localStorageList)
-
-      cartContainer.appendChild(html)
-      break;   
-  }  
-}
-
-function deleteFromCart(event){
-
-
-  cardWrapper.innerHTML = ""
-
-  const title = event.target.dataset.title
-
-  console.log("borte?",event)
-
-  if(localStorageList.length === 1){
-
-    cardWrapper.innerHTML = ""
     localStorage.clear("movieitem");
     cartContainer.innerHTML = "Your cart is empty";
 
-    return
+  }
+
+
+
+  if(amount === 1 && localStorageList.length > 1){
+    
+    cardWrapper.innerHTML = ""
+
+    const filteredMovies = localStorageList.filter(item => item.title !== title)
+
+    localStorageList = filteredMovies
+
+    localStorage.setItem("movieitem", JSON.stringify(localStorageList))
+
+    const html = createCartItem(filteredMovies)
+
+    cartContainer.appendChild(html)
+
+  } 
+  
+  if(amount > 1 && localStorageList.length > 1){
+
+    cardWrapper.innerHTML = ""
+
+    const findIndex = localStorageList.findIndex(movie => movie.title === title)
+
+    localStorageList[findIndex].quantity--
+
+    localStorage.setItem("movieitem", JSON.stringify(localStorageList))
+
+    const html = createCartItem(localStorageList)
+
+    cartContainer.appendChild(html)
 
   }
 
-  const filterOut = localStorageList.filter(movie => movie.title !== title)
+  // const findIndex = localStorageList.findIndex(movie => movie.title === movieDetail.data.title)
 
-  localStorageList = filterOut
+  // localStorageList[findIndex].quantity++
 
-  localStorage.setItem("movieitem", JSON.stringify(localStorageList))
+  // localStorage.setItem("movieitem", JSON.stringify(localStorageList))
 
-  let html = createCartItem(localStorageList)
 
-  cartContainer.appendChild(html)
 
 
 }
 
+function addOneToCart(event){
+
+  const title = event.target.previousSibling.dataset.title
+  const amount = event.target.previousSibling.dataset.quantity
+
+  console.log("add",title, amount);
+
+  // console.log("add",event)
+
+
+}

@@ -1,7 +1,6 @@
 export function createHTML(movie) {  
 
     let html = `<a class="movies-card" href="/product/index.html?movieid=${movie.id}">
-             ${movie.favorite ? "<span class='trending'> Trending </span>" : ""}
              <div class="flex-sale">
                <p class="${movie.onSale ? "on-sale" : ""}">${movie.onSale ? movie.price : ""}</p>
                <p class="current-price">$ ${movie.onSale ? movie.discountedPrice : movie.price} </p>

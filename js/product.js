@@ -31,11 +31,11 @@ async function getMovieDetail() {
 
   const updateButton = itemInCart(localStorageList, movieDetail.data.title)
 
-  if(updateButton){
+  // if(updateButton){
 
-    addCartBtn.innerHTML = `<i class='fa-solid fa-minus'></i> Remove from cart`
+  //   addCartBtn.innerHTML = `<i class='fa-solid fa-minus'></i> Remove from cart`
 
-  }
+  // }
 
   document.title = result.data.title   
 
