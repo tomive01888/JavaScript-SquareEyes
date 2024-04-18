@@ -14,8 +14,6 @@ export function createCartItem(arr){
     if(arr.length === 0){
 
       return []
-
-
     }
 
     if(arr.length > 0){
@@ -205,4 +203,3 @@ function deleteFromCart(event){
 
 
 }
-

@@ -7,8 +7,8 @@ export function createHTML(movie) {
              </div>
  
              <img src="${movie.image.url}" alt="${movie.title}"/>
-             <p class="title">${movie.title}</p>
-             ${movie.favorite ? `<div class='ribbon'>Favorite</div>` : ""}
+             <h2 class="title">${movie.title}</h2>
+             ${movie.favorite ? `<div class='ribbon'><i class="fa-solid fa-heart"></i></div>` : ""}
      </a>`
  
      return html

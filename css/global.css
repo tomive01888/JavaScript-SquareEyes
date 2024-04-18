@@ -1,10 +1,14 @@
-@import url(./single-item-card.css);
-@import url(./single-product.css);
-@import url(./loading.css);
-@import url(./3-item-shown.css);
-@import url(./favorite-ribbon.css);
+@import url(./index-item-card.css);
+@import url(./product-singleinfo.css);
+@import url(./product-extra3random.css);
 @import url(./error.css);
 @import url(./cart.css);
+
+/* Not my work credits to Temani Afif*/
+@import url(./loading.css);
+@import url(./favorite-ribbon.css);
+
+
 
 
 * {
@@ -16,7 +20,6 @@
 body {
     width: 100%;
     min-height: 100vh;
-    max-height: fit-content;
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -98,6 +101,10 @@ main {
     margin: 0 auto;
     min-height: calc(100vh - 190px);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     .container {
         margin: 0 auto;
