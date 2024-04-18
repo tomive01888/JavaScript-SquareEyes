@@ -1,9 +1,8 @@
-import { createHTML, createSmallCard } from "./create-card.js"
-
+import { createHTML, createSmallCard } from "./index-itemcard.js"
 
 const baseURL = "https://v2.api.noroff.dev/square-eyes/"
 
-const movieContainerImage = document.querySelector(".movie-img")
+const movieContainerImage = document.querySelector(".image-box")
 const movieContainerInfo = document.querySelector(".movie-info")
 const addCartBtn = document.querySelector(".addcart")
 const randomPickDiv = document.querySelector(".random-picks")
@@ -31,23 +30,24 @@ async function getMovieDetail() {
 
   // const updateButton = itemInCart(localStorageList, movieDetail.data.title) 
 
-  document.title = result.data.title   
+  document.title = result.data.title
 
-  movieContainerImage.src = result.data.image.url
-
-  movieContainerImage.alt = result.data.title
+  movieContainerImage.innerHTML = `<div> 
+                                    <div class="ribbon"><i class="fa-solid fa-heart"></i></div>
+                                    <img class="movie-img" src="${result.data.image.url}" alt="${result.data.title}" />
+                                  </div>`
 
   movieContainerInfo.innerHTML = `<div class="text-box">
-   <h1>${result.data.title} ${result.data.favorite ? "<span> is now trending </span>" : ""} </h1>
-   <div class="price">
-     <p class="current-price">$ ${result.data.onSale ? result.data.discountedPrice : result.data.price}</p>
-     <p class="${result.data.onSale ? "on-sale" : ""}">${result.data.onSale ? result.data.price : ""}</p>
-   </div>
-   <p>Description:${result.data.description} </i></p>
-   <p>Rating: <i class="fa-solid fa-star"></i> ${result.data.rating} </p>
-   <p>Release year: ${result.data.released}</p>
-   <p>Genre: ${result.data.genre}</p>
-</div>`
+                                    <h1>${result.data.title} </h1>
+                                    <div class="price">
+                                      <p class="current-price">$ ${result.data.onSale ? result.data.discountedPrice : result.data.price}</p>
+                                      <p class="${result.data.onSale ? "on-sale" : ""}">${result.data.onSale ? result.data.price : ""}</p>
+                                    </div>
+                                    <p>Description: ${result.data.description} </i></p>
+                                    <p>Rating: <i class="fa-solid fa-star"></i> ${result.data.rating} </p>
+                                    <p>Release year: ${result.data.released}</p>
+                                    <p>Genre: ${result.data.genre}</p>
+                                  </div>`
 
 }
 getMovieDetail()
@@ -158,3 +158,6 @@ async function filterOutCurrent(){
   }  
  }
  filterOutCurrent()
+
+
+

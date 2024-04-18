@@ -1,4 +1,4 @@
-.movies {
+.all-movies {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     column-gap: 0.5rem;
@@ -83,6 +83,12 @@
 
 
     }
+
+    .ribbon {
+        position: absolute;
+        top: 15px;
+        left: -5px;
+    }
 }
 
 .movies-card:hover {
@@ -95,15 +101,4 @@
     color: red;
     text-decoration: line-through;
     font-size: 14px;
-}
-
-.smallcard {
-
-    max-height: auto;
-
-    img {
-        height: 280px;
-        aspect-ratio: 1/1.5;
-
-    }
 }

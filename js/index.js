@@ -1,9 +1,10 @@
-import { createHTML } from "./create-card.js"
+import { createHTML } from "./index-itemcard.js"
 import { getMovies } from "./fetch-movies.js"
+
 
  
 
-const moviesContainer = document.querySelector(".movies")
+const moviesContainer = document.querySelector(".all-movies")
 const selectOption = document.querySelector(".genre-selector")
 const errorContainer = document.querySelector(".container")
 

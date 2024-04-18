@@ -1,44 +1,40 @@
 .constraint {
-    overflow-x: hidden;
+    color: #ffffff;
+    width: 90%;
     margin: 0 auto;
-    color: white;
-    padding: 1rem;
 
     h2 {
         margin-bottom: 1rem;
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 10px;
+
+    }
+
+    @media (min-width : 680px) {
+        width: 70%;
+
     }
 }
 
 .random-picks {
-    display: flex;
-    gap: 2rem;
-    /* max-width: 750px; */
-
-    @media (max-width: 767px) {
-
-        min-width: 360px;
-        overflow-x: scroll;
-        max-width: 450px;
-        padding-right: 100px;
-    }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 10px;
+    margin: 0 auto;
+    border: 1px solid rgba(121, 121, 121, 0.547);
 
 }
 
+.smallcard {
+    margin: 0 auto;
 
-@media (max-width: 990px) {
-    .movie-detail {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        img {
-            max-width: 90%;
-        }
-
-        .divider {
-            max-width: 90%;
-        }
+    img {
+        width: 100%;
+        max-width: 160px;
+        aspect-ratio: 1/1.5;
+        border-radius: 4px;
 
     }
 }

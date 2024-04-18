@@ -136,3 +136,7 @@ footer {
     background-color: rgba(255, 255, 255, 0.91);
     border-radius: 5px;
 }
+
+p {
+    font-size: 1rem;
+}
