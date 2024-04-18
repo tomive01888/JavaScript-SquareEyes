@@ -28,9 +28,7 @@ export async function getMovies(){
             return data
     
 
-        }
-        
-        
+        } 
 
      
    

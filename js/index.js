@@ -1,19 +1,24 @@
 import { createHTML } from "./index-itemcard.js"
 import { getMovies } from "./fetch-movies.js"
-
-
- 
+import { getFromStorage } from "./localstorage.js"
+import { cartQtyTotalCount } from "./cart-counting.js" 
 
 const moviesContainer = document.querySelector(".all-movies")
 const selectOption = document.querySelector(".genre-selector")
 const errorContainer = document.querySelector(".container")
+const amountTotalCart = document.querySelector(".amount-incart")
 
 let movies = []
+let localStorageList = getFromStorage("movieitem")
 
 
 const allMovies = await getMovies()
 
 console.log("errrrror", allMovies.error)
+
+const totalCart = cartQtyTotalCount(localStorageList)
+
+amountTotalCart.textContent = totalCart
 
 
 if(allMovies.error === false){
@@ -63,5 +68,4 @@ function filteredByGenres(event) {
     moviesContainer.innerHTML +=  createHTML(filteredMovies[i]) 
     console.log(filteredMovies[i])
   }
-
 }

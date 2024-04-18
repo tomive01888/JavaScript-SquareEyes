@@ -1,12 +1,17 @@
+import { cartQtyTotalCount, cartSumTotalPrice } from "./cart-counting.js"
 import { createCartItem } from "./cart-itemcard.js"
 import { getFromStorage } from "./localstorage.js"
 
-
+let localStorageList = getFromStorage("movieitem")
 
 const cartContainer = document.querySelector(".cart-items")
+const amountTotalCart = document.querySelector(".amount-incart")
+
+const totalCart = cartQtyTotalCount(localStorageList)
+
+amountTotalCart.textContent = totalCart
 
 
-let localStorageList = getFromStorage("movieitem")
 console.log(localStorageList)
 
 if(localStorageList.length > 0){
@@ -38,4 +43,12 @@ function removeFromCart(event){
   localStorage.setItem("movieitem", JSON.stringify(localStorageList))
 
 }
+
+
+const cartTotalPrice = document.querySelector(".total-price")
+
+const totalPrice = cartSumTotalPrice(localStorageList)
+
+cartTotalPrice.textContent ="$" + totalPrice
+
 

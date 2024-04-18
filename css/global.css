@@ -64,6 +64,7 @@ nav {
     display: flex;
     align-items: center;
     gap: 2rem;
+    position: relative;
 
     @media (max-width: 769px) {
         display: none;
@@ -96,6 +97,19 @@ nav {
     }
 }
 
+.amount-incart {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    bottom: -2px;
+    right: -10px;
+    background-color: rgba(255, 0, 0, 0.61);
+    padding: 5px;
+    border-radius: 50%;
+    font-weight: 700;
+    aspect-ratio: 1/1;
+}
+
 main {
     width: 98%;
     margin: 0 auto;
@@ -104,7 +118,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 
     .container {
         margin: 0 auto;

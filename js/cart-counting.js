@@ -1,43 +1,27 @@
-import { getFromStorage } from "./localstorage.js";
-
-const cartCounter = document.querySelector(".shop-cart span")
-
-const storageList = getFromStorage("movieitem")
-
-export function cartQtyTotalCount(){
-
-
-  cartCounter.textContent = 0
+export function cartQtyTotalCount(arr){
 
   // replace with array from localStorage =>>>>    const arr = [23, 34, 77, 99, 324];
   let qty = 0;
-  for (let i = 0; i < storageList.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
    
-    qty += storageList[i].quantity;
+    qty += arr[i].quantity;
   
   } 
 
-  console.log("qty total:", qty);
-
-  cartCounter.textContent = qty
-
+  return qty
 }
 
-export function cartSumTotalPrice(){
-  const cartTotalPrice = document.querySelector(".total-price")
 
-// replace with array from localStorage =>>>>    const arr = [23, 34, 77, 99, 324];
-  let sum = 0;
+export function cartSumTotalPrice(arr){  
 
-  cartTotalPrice.textContent = ""
-
-  for (let i = 0; i < localStorageList.length; i++) {
-
-    sum += localStorageList[i].quantity * localStorageList[i].price;
-
-  }
-  console.log("total sum of cart:", sum);
-
-  cartTotalPrice.textContent = "$" + sum
-
+  // replace with array from localStorage =>>>>    const arr = [23, 34, 77, 99, 324];
+    let sum = 0;    
+  
+    for (let i = 0; i < arr.length; i++) {
+  
+      sum += arr[i].quantity * arr[i].price;
+  
+    }
+  
+ return Math.round(sum*100)/100
 }

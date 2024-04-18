@@ -1,4 +1,5 @@
-import { createHTML, createSmallCard } from "./index-itemcard.js"
+import { createSmallCard } from "./index-itemcard.js"
+import { cartQtyTotalCount } from "./cart-counting.js"
 
 const baseURL = "https://v2.api.noroff.dev/square-eyes/"
 
@@ -6,6 +7,7 @@ const movieContainerImage = document.querySelector(".image-box")
 const movieContainerInfo = document.querySelector(".movie-info")
 const addCartBtn = document.querySelector(".addcart")
 const randomPickDiv = document.querySelector(".random-picks")
+const amountTotalCart = document.querySelector(".amount-incart")
 
 
 let movieDetail = {}
@@ -18,7 +20,7 @@ const searchParameters = new URLSearchParams(parameterString);
 
 const movieId = searchParameters.get("movieid")
 
-async function getMovieDetail() {    
+async function getMovieDetail() {
 
   const completeMovieUrl = baseURL + movieId  
     
@@ -52,12 +54,21 @@ async function getMovieDetail() {
 }
 getMovieDetail()
 
+const totalCart = cartQtyTotalCount(localStorageList)
+
+amountTotalCart.textContent = totalCart
+
+
+
+
 addCartBtn.addEventListener("click", addToCart)
 
 function addToCart(){
 
   let quantity = 0
 
+
+  // V2 you need to use x.data.x.x or V1 it will be movieDetail.image.url
   let movieToAdd = { 
     image: movieDetail.data.image.url,
     title: movieDetail.data.title,
@@ -71,7 +82,11 @@ function addToCart(){
 
     localStorageList.push({...movieToAdd, quantity:quantity+1})
 
-    localStorage.setItem("movieitem", JSON.stringify(localStorageList))
+    localStorage.setItem("movieitem", JSON.stringify(localStorageList)) 
+
+    const totalCart = cartQtyTotalCount(localStorageList)
+
+    amountTotalCart.textContent = totalCart
 
   } 
   else {    
@@ -80,8 +95,14 @@ function addToCart(){
     localStorageList[findIndex].quantity++
 
     localStorage.setItem("movieitem", JSON.stringify(localStorageList))
-  } 
+
+    const totalCart = cartQtyTotalCount(localStorageList)
+
+    amountTotalCart.textContent = totalCart
+  }
 };
+
+
 
 function itemInCart(arr, titleToCheck) {
   

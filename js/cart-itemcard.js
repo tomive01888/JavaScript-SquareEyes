@@ -1,11 +1,20 @@
+import { cartQtyTotalCount, cartSumTotalPrice } from "./cart-counting.js";
 import { getFromStorage } from "./localstorage.js";
 
+let localStorageList = getFromStorage("movieitem")
+
+
 const cartContainer = document.querySelector(".cart-items")
+const totalPriceCart = document.querySelector(".total-price")
+const amountTotalCart = document.querySelector(".amount-incart")
+
 
 const cardWrapper = document.createElement("div")
 cardWrapper.classList.add("innerWrapper")
 
-let localStorageList = getFromStorage("movieitem")
+amountTotalCart.textContent = "$" + cartSumTotalPrice(localStorageList)
+
+
 
 export function createCartItem(arr){   
 
@@ -118,6 +127,12 @@ function removeOneFromCart(event){
     let cartHtml = createCartItem(localStorageList)
 
     cartContainer.appendChild(cartHtml)
+ 
+
+    totalPriceCart.textContent = "$" + cartSumTotalPrice(localStorageList)
+    
+    amountTotalCart.textContent = cartQtyTotalCount(localStorageList)
+
 
       
       break;
@@ -130,6 +145,10 @@ function removeOneFromCart(event){
       cardWrapper.innerHTML = ""
       localStorage.clear("movieitem");
       cartContainer.innerHTML = "Your cart is empty";
+
+      totalPriceCart.textContent = "$" + 0
+      amountTotalCart.textContent = 0
+
 
       return
 
@@ -151,6 +170,10 @@ function removeOneFromCart(event){
 
       cartContainer.appendChild(html)
 
+      totalPriceCart.textContent = "$" + cartSumTotalPrice(localStorageList)
+      amountTotalCart.textContent = cartQtyTotalCount(localStorageList)
+
+
       return 
 
     }
@@ -168,6 +191,10 @@ function removeOneFromCart(event){
       let html = createCartItem(localStorageList)
 
       cartContainer.appendChild(html)
+
+      totalPriceCart.textContent = "$" + cartSumTotalPrice(localStorageList)
+      amountTotalCart.textContent = cartQtyTotalCount(localStorageList)
+
       break;   
   }  
 }
@@ -187,6 +214,11 @@ function deleteFromCart(event){
     localStorage.clear("movieitem");
     cartContainer.innerHTML = "Your cart is empty";
 
+    totalPriceCart.textContent = "$" + 0
+    amountTotalCart.textContent = 0
+
+
+
     return
 
   }
@@ -200,6 +232,10 @@ function deleteFromCart(event){
   let html = createCartItem(localStorageList)
 
   cartContainer.appendChild(html)
+
+  totalPriceCart.textContent = "$" + cartSumTotalPrice(localStorageList)
+  amountTotalCart.textContent = cartQtyTotalCount(localStorageList)
+
 
 
 }
