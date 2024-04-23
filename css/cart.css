@@ -27,6 +27,11 @@
 
     }
 
+    @media (min-width: 1175px) {
+        width: 45%;
+
+    }
+
 }
 
 .single-product {
