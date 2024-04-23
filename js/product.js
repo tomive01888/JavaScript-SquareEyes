@@ -67,8 +67,7 @@ function addToCart(){
 
   let quantity = 0
 
-
-  // V2 you need to use x.data.x.x or V1 it will be movieDetail.image.url
+  // V2 you need to use 'movieDetail.data.image.url' or V1 it will be 'movieDetail.image.url'
   let movieToAdd = { 
     image: movieDetail.data.image.url,
     title: movieDetail.data.title,
@@ -113,6 +112,7 @@ function itemInCart(arr, titleToCheck) {
   }
 }
 
+
 function getFromStorage(key) {
   const savedInStorage = localStorage.getItem(key)
 
@@ -121,7 +121,10 @@ function getFromStorage(key) {
   }
 
   return JSON.parse(savedInStorage)
+  
 }
+
+
 
 async function filterOutCurrent(){
 

@@ -8,7 +8,7 @@
     margin: 0 auto;
     height: fit-content;
 
-    @media (min-width: 677px) {
+    @media (min-width: 768px) {
         flex-direction: row;
 
     }
@@ -50,7 +50,7 @@
     justify-content: center;
     gap: 1rem;
     width: 100%;
-    padding: 12px;
+    padding: 20px;
 
     .price {
         display: flex;
@@ -73,28 +73,16 @@
     margin-bottom: 15px;
 }
 
+.addcart:hover {
+    background-color: #898989;
+
+}
+
+.addcart:active {
+    background-color: rgb(49, 49, 49);
+    color: white;
+}
+
 .fa-star {
     color: gold;
 }
-
-
-/* 
-@media (max-width: 990px) {
-
-
-    .movie-detail {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        img {
-            max-width: 90%;
-        }
-
-        .divider {
-            max-width: 90%;
-        }
-
-    }
-} */

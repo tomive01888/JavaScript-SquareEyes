@@ -2,11 +2,17 @@
     width: 95%;
     margin: 0 auto;
     margin-top: 5rem;
+    margin-bottom: 10px;
     color: white;
     border-bottom: 2px dotted rgba(67, 67, 67, 0.592);
 
     @media (min-width: 768px) {
-        width: 70%;
+        width: 95%;
+
+    }
+
+    @media (min-width: 1175px) {
+        width: 45%;
 
     }
 
@@ -39,6 +45,10 @@
     @media (min-width: 768px) {
         flex-direction: row;
 
+    }
+
+    @media (min-width: 1175px) {
+        width: 64.5%;
 
     }
 }
@@ -155,6 +165,11 @@
 
     }
 
+    @media (min-width: 1175px) {
+        width: 45%;
+
+    }
+
     div {
         display: flex;
 
@@ -165,8 +180,6 @@
 
         }
     }
-
-
 
     p {
         font-weight: 700;
@@ -180,8 +193,6 @@
         text-align: end;
 
     }
-
-
 }
 
 .checkout {
@@ -195,4 +206,9 @@
     font-weight: 700;
     margin: 0 20px;
 
+}
+
+.checkout:hover {
+    background-color: grey;
+    color: white;
 }

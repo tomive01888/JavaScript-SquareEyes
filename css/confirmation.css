@@ -1,0 +1,7 @@
+.confirm-list {
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+
+}

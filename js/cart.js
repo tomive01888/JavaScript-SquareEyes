@@ -16,13 +16,11 @@ console.log(localStorageList)
 
 if(localStorageList.length > 0){
 
-  // cartContainer.innerHTML = ""
 
   const html = createCartItem(localStorageList)
   
   cartContainer.appendChild(html)
 
-  // console.log(html)
 
 }else{
   cartContainer.innerHTML = "Your cart is empty"
@@ -50,5 +48,34 @@ const cartTotalPrice = document.querySelector(".total-price")
 const totalPrice = cartSumTotalPrice(localStorageList)
 
 cartTotalPrice.textContent ="$" + totalPrice
+
+
+const confirmBtn = document.querySelector(".checkout")
+const closeBtn = document.querySelector(".xmark")
+const modalWindow = document.querySelector("#user-confirm")
+
+confirmBtn.addEventListener('click', openWindow)
+
+
+closeBtn.addEventListener('click', closeWindow)
+
+function closeWindow(){
+  modalWindow.style.display = "none"
+}
+
+function openWindow(){
+  modalWindow.style.display = "flex" 
+
+}
+
+const purchaseBtn = document.querySelector("#purchased")
+
+purchaseBtn.addEventListener('click', confirmOrder)
+
+function confirmOrder(){
+  localStorage.removeItem("movieitem");
+}  
+
+
 
 

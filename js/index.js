@@ -21,11 +21,13 @@ const totalCart = cartQtyTotalCount(localStorageList)
 amountTotalCart.textContent = totalCart
 
 
-if(allMovies.error === false){
+if(allMovies.error === false){   
 
   console.log(allMovies)
 
   movies = allMovies.movies.data
+
+  console.log("target value", movies)
 
   moviesContainer.innerHTML = ""
 
@@ -45,6 +47,8 @@ if(allMovies.error === false){
 
 }
 
+
+
 selectOption.addEventListener("input", filteredByGenres)
 
 function filteredByGenres(event) {  
@@ -55,7 +59,7 @@ function filteredByGenres(event) {
   moviesContainer.innerHTML = ""
 
   for (let i = 0; i < movies.length; i++){   
-    moviesContainer.innerHTML +=  createHTML(movies[i]) 
+    moviesContainer.innerHTML +=  createHTML(movies[i])
   }
   return 
  }
@@ -66,6 +70,5 @@ function filteredByGenres(event) {
 
  for (let i = 0; i < filteredMovies.length; i++){   
     moviesContainer.innerHTML +=  createHTML(filteredMovies[i]) 
-    console.log(filteredMovies[i])
   }
 }

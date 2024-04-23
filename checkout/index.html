@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SquareEyes Movies</title>
-    <link rel="icon" type="image/x-icon" href="./favicon-32x32.png" />
+    <link rel="icon" type="image/x-icon" href="../favicon-32x32.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -29,6 +29,15 @@
     </header>
 
     <main>
+      <div id="user-confirm">
+        <div class="view-block">
+          <p>Confirm purchase order</p>
+          <button class="xmark">X</button>
+          <a href="./confirmation/index.html"><button id="purchased">Purchase</button></a>
+          <a id="homebtn" href="/">Continue shopping</a>
+        </div>
+      </div>
+
       <h1 class="h1-wrapper">Cart</h1>
       <div class="cart-items"></div>
 
@@ -37,7 +46,7 @@
           <p>Total price:</p>
           <p class="total-price">0</p>
         </div>
-        <button class="checkout">PURCHASE</button>
+        <button class="checkout">Proceed</button>
       </div>
     </main>
 
@@ -49,6 +58,5 @@
       </div>
     </footer>
     <script src="../js/cart.js" type="module"></script>
-    <script src="../js/cart-totalcount.js" type="module"></script>
   </body>
 </html>
