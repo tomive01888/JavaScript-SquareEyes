@@ -17,7 +17,7 @@ export function createHTML(movie) {
 
  export function createSmallCard(movie) {  
 
-    let html = `<a class="smallcard" href="./product/index.html?movieid=${movie.id}"> 
+    let html = `<a class="smallcard" href="./index.html?movieid=${movie.id}"> 
                   <img src="${movie.image.url}" alt="${movie.title}"/>
                 </a>`
  

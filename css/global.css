@@ -54,8 +54,6 @@ header {
             padding: 0;
 
         }
-
-
     }
 
 
@@ -128,7 +126,7 @@ nav {
 }
 
 main {
-    width: 98%;
+    width: 100%;
     margin: 0 auto;
     min-height: calc(100vh - 190px);
     position: relative;

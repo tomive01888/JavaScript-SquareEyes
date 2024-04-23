@@ -26,23 +26,6 @@ if(localStorageList.length > 0){
   cartContainer.innerHTML = "Your cart is empty"
 }
 
-const deleteBtn = document.querySelectorAll(".remove-from-cart")
-
-deleteBtn.forEach(btn => btn.addEventListener("click", removeFromCart))
-
-function removeFromCart(event){
-
-  const movieToRemove = event.target.dataset.target
-
-  const filteredMovies = localStorageList.filter(item => item.title !== movieToRemove)
-
-  localStorageList = filteredMovies
-
-  localStorage.setItem("movieitem", JSON.stringify(localStorageList))
-
-}
-
-
 const cartTotalPrice = document.querySelector(".total-price")
 
 const totalPrice = cartSumTotalPrice(localStorageList)
@@ -65,6 +48,7 @@ function closeWindow(){
 
 function openWindow(){
   modalWindow.style.display = "flex" 
+  modalWindow.style.height = "100%"
 
 }
 

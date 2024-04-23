@@ -29,24 +29,29 @@
     </header>
 
     <main>
-      <div id="user-confirm">
-        <div class="view-block">
-          <p>Confirm purchase order</p>
+      <div class="outer-container">
+        <h1 class="h1-wrapper">Cart</h1>
+        <div class="cart-items"></div>
+
+        <div class="total-amount-cart">
+          <div>
+            <p>Total price:</p>
+            <p class="total-price">0</p>
+          </div>
+          <button class="checkout">Proceed</button>
+        </div>
+
+        <div id="user-confirm">
           <button class="xmark">X</button>
-          <a href="./confirmation/index.html"><button id="purchased">Purchase</button></a>
-          <a id="homebtn" href="/">Continue shopping</a>
+          <div class="view-block">
+            <p>Continue shopping</p>
+            <a id="homebtn" href="/">Go back home</a>
+          </div>
+          <div class="view-block">
+            <p>Continue</p>
+            <a class="go-to-check" href="./confirmation/index.html"><button id="purchased">Purchase</button></a>
+          </div>
         </div>
-      </div>
-
-      <h1 class="h1-wrapper">Cart</h1>
-      <div class="cart-items"></div>
-
-      <div class="total-amount-cart">
-        <div>
-          <p>Total price:</p>
-          <p class="total-price">0</p>
-        </div>
-        <button class="checkout">Proceed</button>
       </div>
     </main>
 

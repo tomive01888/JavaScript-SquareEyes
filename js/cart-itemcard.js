@@ -107,7 +107,6 @@ export function createCartItem(arr){
 function removeOneFromCart(event){
 
   const actionType = event.target.dataset.action
-  console.log("action",actionType)
 
   const title = actionType === 'decrease' ? event.target.nextSibling.dataset.title : event.target.previousSibling.dataset.title
   const amount = actionType === 'decrease' ? Number(event.target.nextSibling.dataset.quantity) : Number(event.target.previousSibling.dataset.quantity) 
@@ -201,12 +200,11 @@ function removeOneFromCart(event){
 
 function deleteFromCart(event){
 
+  console.log("adasdasd",event)
 
   cardWrapper.innerHTML = ""
 
   const title = event.target.dataset.title
-
-  console.log("borte?",event)
 
   if(localStorageList.length === 1){
 
@@ -217,10 +215,7 @@ function deleteFromCart(event){
     totalPriceCart.textContent = "$" + 0
     amountTotalCart.textContent = 0
 
-
-
     return
-
   }
 
   const filterOut = localStorageList.filter(movie => movie.title !== title)
