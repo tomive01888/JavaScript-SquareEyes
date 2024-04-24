@@ -7,25 +7,19 @@ https://css-loaders.com/eyes/
 
 /* HTML: <div class="ribbon">Your text content</div> */
 .ribbon {
-    font-size: 20px;
+    position: absolute;
+    font-size: 16px;
     font-weight: bold;
     color: #fff;
-    position: absolute;
-    top: 15px;
-    left: -5px;
 }
 
 .ribbon {
     --r: .8em;
     /* control the cutout */
 
-    border-block: .5em solid #0000;
-    padding-inline: .5em calc(var(--r) + .25em);
+    padding-right: calc(var(--r) + .25em);
     line-height: 1.8;
-    clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%, 100% calc(100% - .25em), calc(100% - var(--r)) 50%, 100% .25em);
-    background:
-        radial-gradient(.2em 50% at left, #000a, #0000) border-box,
-        #271df1 padding-box;
-    /* the color  */
-    width: fit-content;
+    clip-path: polygon(-100vw 0, calc(100% - var(--r)) 0, 100% 50%, calc(100% - var(--r)) 100%, -100vw 100%);
+    border-image: conic-gradient(#0c14fe 0 0) fill 0 // 10px;
+        width: fit-content;
 }

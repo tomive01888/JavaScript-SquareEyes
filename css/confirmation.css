@@ -1,7 +1,27 @@
 .confirm-list {
+    margin-top: 100px;
     color: white;
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 1rem;
+    border: 1px solid rgba(121, 121, 121, 0.547);
+    box-shadow: 2px 2px 5px black;
+    padding: 2rem;
+    border-radius: 8px;
+
+
+    span {
+        justify-self: center;
+    }
+
+    p {
+        max-width: 55ch;
+        text-wrap: pretty;
+    }
+
+    img {
+        width: 100%;
+        max-width: 55px;
+    }
 
 }

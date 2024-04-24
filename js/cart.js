@@ -11,11 +11,7 @@ const totalCart = cartQtyTotalCount(localStorageList)
 
 amountTotalCart.textContent = totalCart
 
-
-console.log(localStorageList)
-
 if(localStorageList.length > 0){
-
 
   const html = createCartItem(localStorageList)
   
@@ -32,32 +28,22 @@ const totalPrice = cartSumTotalPrice(localStorageList)
 
 cartTotalPrice.textContent ="$" + totalPrice
 
-
-const confirmBtn = document.querySelector(".checkout")
-const closeBtn = document.querySelector(".xmark")
-const modalWindow = document.querySelector("#user-confirm")
-
-confirmBtn.addEventListener('click', openWindow)
-
-
-closeBtn.addEventListener('click', closeWindow)
-
-function closeWindow(){
-  modalWindow.style.display = "none"
-}
-
-function openWindow(){
-  modalWindow.style.display = "flex" 
-  modalWindow.style.height = "100%"
-
-}
-
+const hrefToCheckout = document.querySelector(".go-to-check")
 const purchaseBtn = document.querySelector("#purchased")
 
 purchaseBtn.addEventListener('click', confirmOrder)
 
 function confirmOrder(){
-  localStorage.removeItem("movieitem");
+  if(localStorageList.length > 0){
+
+    hrefToCheckout.href = "./confirmation/index.html"
+    localStorage.removeItem("movieitem");
+
+  }else{
+    
+    hrefToCheckout.href = ""
+   
+  }
 }  
 
 

@@ -22,7 +22,6 @@ let fullYear = `${day}-${month}-${year}`
 todaysDate.innerHTML = fullYear
 
 
-
 function fiveRandomValues(length) {
   let result = '';
   const characters = '0123456789';
@@ -35,4 +34,4 @@ function fiveRandomValues(length) {
   return result;
 }
 
-randomValue.innerHTML = fiveRandomValues(6)
+randomValue.innerHTML = fiveRandomValues(5)

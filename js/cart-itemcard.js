@@ -7,6 +7,8 @@ let localStorageList = getFromStorage("movieitem")
 const cartContainer = document.querySelector(".cart-items")
 const totalPriceCart = document.querySelector(".total-price")
 const amountTotalCart = document.querySelector(".amount-incart")
+const hrefToCheckout = document.querySelector(".go-to-check")
+
 
 
 const cardWrapper = document.createElement("div")
@@ -34,7 +36,7 @@ export function createCartItem(arr){
     
         //
         const containerFirst = document.createElement("div")
-        containerFirst.classList.add('contFirst');
+        containerFirst.classList.add('leftContainer');
         movieWrapper.appendChild(containerFirst)
     
         const movieImage = document.createElement("img")
@@ -49,12 +51,12 @@ export function createCartItem(arr){
         
         //
         const containerSecond = document.createElement("div")
-        containerSecond.classList.add('contSecond')
+        containerSecond.classList.add('rightContainer')
         movieWrapper.appendChild(containerSecond)    
         
         //
         const quantityWrapper = document.createElement("div")
-        quantityWrapper.classList.add('quantitywrapper')
+        quantityWrapper.classList.add('qtyContainer')
         containerSecond.appendChild(quantityWrapper)
     
         const buttonMinus = document.createElement("button")
@@ -141,13 +143,14 @@ function removeOneFromCart(event){
     
     if(localStorageList.length === 1 && amount === 1){
 
+      hrefToCheckout.href = ""
       cardWrapper.innerHTML = ""
+
       localStorage.clear("movieitem");
       cartContainer.innerHTML = "Your cart is empty";
 
       totalPriceCart.textContent = "$" + 0
-      amountTotalCart.textContent = 0
-
+      amountTotalCart.textContent = 0 
 
       return
 
@@ -200,16 +203,17 @@ function removeOneFromCart(event){
 
 function deleteFromCart(event){
 
-  console.log("adasdasd",event)
-
   cardWrapper.innerHTML = ""
 
   const title = event.target.dataset.title
 
   if(localStorageList.length === 1){
 
+    hrefToCheckout.href = ""
     cardWrapper.innerHTML = ""
+
     localStorage.clear("movieitem");
+    
     cartContainer.innerHTML = "Your cart is empty";
 
     totalPriceCart.textContent = "$" + 0
@@ -218,19 +222,17 @@ function deleteFromCart(event){
     return
   }
 
-  const filterOut = localStorageList.filter(movie => movie.title !== title)
+  const removeOne = localStorageList.filter(obj => obj.title !== title)
 
-  localStorageList = filterOut
+  localStorageList = removeOne
 
   localStorage.setItem("movieitem", JSON.stringify(localStorageList))
 
-  let html = createCartItem(localStorageList)
+  let HTML = createCartItem(localStorageList)
 
-  cartContainer.appendChild(html)
+  cartContainer.appendChild(HTML)
 
   totalPriceCart.textContent = "$" + cartSumTotalPrice(localStorageList)
   amountTotalCart.textContent = cartQtyTotalCount(localStorageList)
-
-
 
 }

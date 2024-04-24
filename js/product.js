@@ -30,12 +30,10 @@ async function getMovieDetail() {
 
   movieDetail = result
 
-  // const updateButton = itemInCart(localStorageList, movieDetail.data.title) 
-
   document.title = result.data.title
 
   movieContainerImage.innerHTML = `<div> 
-                                    <div class="ribbon"><i class="fa-solid fa-heart"></i></div>
+                                      ${result.data.onSale ? `<div class='ribbon'>%</div>` : ""}
                                     <img class="movie-img" src="${result.data.image.url}" alt="${result.data.title}" />
                                   </div>`
 

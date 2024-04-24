@@ -3,7 +3,6 @@
 @import url(./product-extra3random.css);
 @import url(./error.css);
 @import url(./cart.css);
-@import url(./finalcheck.css);
 @import url(./confirmation.css);
 
 /* Not my work credits to Temani Afif*/
@@ -32,12 +31,18 @@ header {
     max-width: 92rem;
     margin: 0 auto;
 
-    .wrapper {
+    .headerWrapper {
         max-width: 90rem;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         margin: 0 3rem;
+
+        @media (max-width: 630px) {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
 
     }
 
@@ -75,10 +80,26 @@ nav {
     gap: 2rem;
     position: relative;
 
-    @media (max-width: 769px) {
-        display: none;
-        overflow: hidden;
+    .desktopNAV {
+        @media (max-width: 769px) {
+            display: none;
+            overflow: hidden;
+        }
     }
+
+    .mobileNAV {
+        color: white;
+        font-size: 20px;
+
+
+        @media (min-width: 769px) {
+            display: none;
+            overflow: hidden;
+        }
+
+
+    }
+
 
     a {
         text-decoration: none;
@@ -157,7 +178,7 @@ footer {
     }
 }
 
-.genre-selector {
+.genreSelector {
     width: 100%;
     max-width: 400px;
     padding: 4px 10px;
@@ -168,10 +189,13 @@ footer {
 
     option {
         font-size: 18px;
-        border: 1px solid red;
     }
 }
 
 a {
     text-decoration: none;
+}
+
+.show {
+    display: inline-flex;
 }
