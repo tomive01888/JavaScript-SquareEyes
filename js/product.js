@@ -1,5 +1,5 @@
 import { createSmallCard } from "./index-itemcard.js"
-import { cartQtyTotalCount } from "./cart-counting.js"
+import { cartTotalQty } from "./cart-counting.js"
 
 const baseURL = "https://v2.api.noroff.dev/square-eyes/"
 
@@ -8,7 +8,6 @@ const movieContainerInfo = document.querySelector(".movie-info")
 const addCartBtn = document.querySelector(".addcart")
 const randomPickDiv = document.querySelector(".random-picks")
 const amountTotalCart = document.querySelector(".amount-incart")
-
 
 let movieDetail = {}
 
@@ -21,52 +20,67 @@ const searchParameters = new URLSearchParams(parameterString);
 const movieId = searchParameters.get("movieid")
 
 async function getMovieDetail() {
+  try {
 
-  const completeMovieUrl = baseURL + movieId  
-    
-  const req = await fetch(completeMovieUrl)
+    await delayLoad(400);   
 
-  const result = await req.json()
+    const completeMovieUrl = baseURL + movieId  
+      
+    const req = await fetch(completeMovieUrl)
 
-  movieDetail = result
+    if (!req.ok) {
 
-  document.title = result.data.title
+      throw new Error('Failed to fetch movie details');
 
-  movieContainerImage.innerHTML = `<div> 
-                                      ${result.data.onSale ? `<div class='ribbon'>%</div>` : ""}
-                                    <img class="movie-img" src="${result.data.image.url}" alt="${result.data.title}" />
-                                  </div>`
+    }
 
-  movieContainerInfo.innerHTML = `<div class="text-box">
-                                    <h1>${result.data.title} </h1>
-                                    <div class="price">
-                                      <p class="current-price">$ ${result.data.onSale ? result.data.discountedPrice : result.data.price}</p>
-                                      <p class="${result.data.onSale ? "on-sale" : ""}">${result.data.onSale ? result.data.price : ""}</p>
-                                    </div>
-                                    <p>Description: ${result.data.description} </i></p>
-                                    <p>Rating: <i class="fa-solid fa-star"></i> ${result.data.rating} </p>
-                                    <p>Release year: ${result.data.released}</p>
-                                    <p>Genre: ${result.data.genre}</p>
-                                  </div>`
+    const result = await req.json() 
 
+    movieDetail = result
+
+    document.title = result.data.title
+
+    movieContainerImage.innerHTML = `<div>
+                                      ${movieDetail.data.onSale ? `<div class='ribbon'>%</div>` : ""}
+                                      <img class="movie-img" src="${movieDetail.data.image.url}" alt="${movieDetail.data.title}" />
+                                    </div>`
+
+    movieContainerInfo.innerHTML = `<div class="text-box">
+                                      <h1>${movieDetail.data.title} </h1>
+                                      <div class="price">
+                                        <p class="current-price">$ ${movieDetail.data.onSale ? movieDetail.data.discountedPrice : movieDetail.data.price}</p>
+                                        <p class="${movieDetail.data.onSale ? "on-sale" : ""}">${movieDetail.data.onSale ? movieDetail.data.price : ""}</p>
+                                      </div>
+                                      <p>Description: ${movieDetail.data.description} </i></p>
+                                      <p>Rating: <i class="fa-solid fa-star"></i> ${movieDetail.data.rating} </p>
+                                      <p>Release year: ${movieDetail.data.released}</p>
+                                      <p>Genre: ${movieDetail.data.genre}</p>
+                                    </div>`
+
+
+  }catch(error){
+
+    console.error('Error fetching movie details:', error);
+  }
 }
+
+function delayLoad(ms) {    
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 getMovieDetail()
 
-const totalCart = cartQtyTotalCount(localStorageList)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const totalCart = cartTotalQty(localStorageList)
+
 
 amountTotalCart.textContent = totalCart
-
-
-
-
 addCartBtn.addEventListener("click", addToCart)
-
 function addToCart(){
 
   let quantity = 0
 
-  // V2 you need to use 'movieDetail.data.image.url' or V1 it will be 'movieDetail.image.url'
-  let movieToAdd = { 
+  const movieToAdd = { 
     image: movieDetail.data.image.url,
     title: movieDetail.data.title,
     price: movieDetail.data.onSale ? movieDetail.data.discountedPrice : movieDetail.data.price,
@@ -81,7 +95,7 @@ function addToCart(){
 
     localStorage.setItem("movieitem", JSON.stringify(localStorageList)) 
 
-    const totalCart = cartQtyTotalCount(localStorageList)
+    const totalCart = cartTotalQty(localStorageList)
 
     amountTotalCart.textContent = totalCart
 
@@ -93,7 +107,7 @@ function addToCart(){
 
     localStorage.setItem("movieitem", JSON.stringify(localStorageList))
 
-    const totalCart = cartQtyTotalCount(localStorageList)
+    const totalCart = cartTotalQty(localStorageList)
 
     amountTotalCart.textContent = totalCart
   }
@@ -102,14 +116,13 @@ function addToCart(){
 
 
 function itemInCart(arr, titleToCheck) {
-  
+
    const found = arr.some((item) => item.title === titleToCheck )
 
   if (found) {
     return true
   }
-}
-
+};
 
 function getFromStorage(key) {
   const savedInStorage = localStorage.getItem(key)
@@ -120,18 +133,21 @@ function getFromStorage(key) {
 
   return JSON.parse(savedInStorage)
   
-}
+};
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 async function filterOutCurrent(){
+
+
+  await delay(200);
 
   const req = await fetch(baseURL)
  
   if (req.ok){
-   const result = await req.json()
+   const movieDetail = await req.json()
  
-   const movies = result.data 
+   const movies = movieDetail.data 
    
    randomPickDiv.innerHTML = ""
 
@@ -174,12 +190,14 @@ async function filterOutCurrent(){
    <div class="error">
                <p>Error: while fetching data</p>
                <p>Status code: ${req.status} </p>
-   </div> 
-   
-   `  
+   </div>`   
   }  
- }
- filterOutCurrent()
+}
 
+function delay(ms) {
+    
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-
+filterOutCurrent();
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

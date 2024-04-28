@@ -1,13 +1,8 @@
-import { cartQtyTotalCount } from "./cart-counting.js"
-import { getFromStorage } from "./localstorage.js"
-
 const amountTotalCart = document.querySelector(".amount-incart")
 const todaysDate = document.querySelector(".date")
 const randomValue = document.querySelector(".random-value")
 
-let localStorageList = getFromStorage("movieitem")
-
-const totalCart = cartQtyTotalCount(localStorageList)
+const totalCart = "0"
 
 amountTotalCart.textContent = totalCart
 

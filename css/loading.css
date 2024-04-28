@@ -6,12 +6,8 @@ https://css-loaders.com/eyes/
 */
 
 .loader {
-    /* display: inline-flex; */
+    display: inline-flex;
     gap: 10px;
-    position: absolute;
-    left: 50%;
-    top: 20%;
-    display: none;
 
 }
 

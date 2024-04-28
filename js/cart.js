@@ -1,47 +1,44 @@
-import { cartQtyTotalCount, cartSumTotalPrice } from "./cart-counting.js"
+import { cartTotalQty, cartTotalPrice } from "./cart-counting.js"
 import { createCartItem } from "./cart-itemcard.js"
 import { getFromStorage } from "./localstorage.js"
 
 let localStorageList = getFromStorage("movieitem")
 
-const cartContainer = document.querySelector(".cart-items")
+let cartContainer = document.querySelector(".created-itemlist")
+const priceDisplay = document.querySelector(".total-price")
 const amountTotalCart = document.querySelector(".amount-incart")
 
-const totalCart = cartQtyTotalCount(localStorageList)
+const totalCart = cartTotalQty(localStorageList)
 
 amountTotalCart.textContent = totalCart
 
 if(localStorageList.length > 0){
 
-  const html = createCartItem(localStorageList)
-  
-  cartContainer.appendChild(html)
-
+  cartContainer = createCartItem(localStorageList);
 
 }else{
-  cartContainer.innerHTML = "Your cart is empty"
+  cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
 }
 
-const cartTotalPrice = document.querySelector(".total-price")
 
-const totalPrice = cartSumTotalPrice(localStorageList)
+priceDisplay.textContent ="$" + cartTotalPrice(localStorageList);
 
-cartTotalPrice.textContent ="$" + totalPrice
 
-const hrefToCheckout = document.querySelector(".go-to-check")
-const purchaseBtn = document.querySelector("#purchased")
 
-purchaseBtn.addEventListener('click', confirmOrder)
+const hrefToCheckout = document.querySelector(".go-to-check");
+const purchaseBtn = document.querySelector("#purchased");
+
+purchaseBtn.addEventListener('click', confirmOrder);
 
 function confirmOrder(){
   if(localStorageList.length > 0){
 
-    hrefToCheckout.href = "./confirmation/index.html"
+    hrefToCheckout.href = "./confirmation/index.html";
     localStorage.removeItem("movieitem");
 
   }else{
     
-    hrefToCheckout.href = ""
+    hrefToCheckout.href = "";
    
   }
 }  

@@ -25,6 +25,11 @@
     margin: 0 auto;
     border: 1px solid rgba(121, 121, 121, 0.547);
 
+    #loader-3 {
+        grid-column: 1 /span 3;
+        margin: 0 auto;
+    }
+
 }
 
 .smallcard {

@@ -12,20 +12,13 @@
         flex-direction: row;
 
     }
-
-    .divider {
-        width: 100%;
-        background-color: rgba(54, 54, 54, 0.425);
-        box-shadow: 2px 2px 5px black;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 3rem;
-    }
 }
 
 .image-box {
     position: relative;
+    min-width: 120px;
+    min-height: 120px;
+    display: flex;
 
     .ribbon {
         position: absolute;
@@ -38,8 +31,32 @@
         display: block;
         width: 100%;
         box-shadow: 2px 2px 5px black;
+    }
 
+    .loader {
+        margin: 0 auto;
+        align-self: center;
+        justify-self: center;
+    }
+}
 
+.divider {
+    width: 100%;
+    background-color: rgba(54, 54, 54, 0.425);
+    box-shadow: 2px 2px 5px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 3rem;
+
+}
+
+.movie-info {
+    display: flex;
+    flex-direction: column;
+
+    .loader {
+        margin: 0 auto;
     }
 }
 
@@ -49,6 +66,8 @@
     align-items: flex-start;
     justify-content: center;
     gap: 1rem;
+    min-width: 120px;
+    min-height: 120px;
     width: 100%;
     padding: 20px;
 
@@ -58,6 +77,8 @@
         gap: 10px;
         text-wrap: pretty;
     }
+
+
 }
 
 .addcart {

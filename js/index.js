@@ -1,7 +1,7 @@
 import { createHTML } from "./index-itemcard.js"
 import { getMovies } from "./fetchAPI.js"
 import { getFromStorage } from "./localstorage.js"
-import { cartQtyTotalCount } from "./cart-counting.js" 
+import { cartTotalQty } from "./cart-counting.js" 
 
 const moviesContainer = document.querySelector(".all-movies")
 const selectOption = document.querySelector(".genreSelector")
@@ -13,10 +13,7 @@ let localStorageList = getFromStorage("movieitem")
 
 const allMovies = await getMovies()
 
-const totalCart = cartQtyTotalCount(localStorageList)
-
-amountTotalCart.textContent = totalCart
-
+amountTotalCart.textContent = cartTotalQty(localStorageList)
 
 if(allMovies.error === false){ 
 
@@ -26,12 +23,13 @@ if(allMovies.error === false){
 
   moviesContainer.innerHTML = ""
 
- for(let i = 0; i < movies.length; i++){   
+ for(let i = 0; i < movies.length; i++){
+
       moviesContainer.innerHTML +=  createHTML(movies[i])
+      
      }
 
 } else{
-  // errorContainer.innerHTML = ""
 
   errorContainer.innerHTML += `<div class="error">
                 <h1>${allMovies.msg}</h1>
