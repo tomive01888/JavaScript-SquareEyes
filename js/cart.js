@@ -24,14 +24,13 @@ if(localStorageList.length > 0){
 priceDisplay.textContent ="$" + cartTotalPrice(localStorageList);
 
 
-
 const hrefToCheckout = document.querySelector(".go-to-check");
 const purchaseBtn = document.querySelector("#purchased");
 
 purchaseBtn.addEventListener('click', confirmOrder);
 
 function confirmOrder(){
-  if(localStorageList.length > 0){
+  if(localStorageList.length >= 1){
 
     hrefToCheckout.href = "./confirmation/index.html";
     localStorage.removeItem("movieitem");

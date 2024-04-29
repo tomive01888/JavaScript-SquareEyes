@@ -2,14 +2,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    justify-content: center;
     color: white;
     width: 90%;
     margin: 0 auto;
-    height: fit-content;
 
     @media (min-width: 768px) {
         flex-direction: row;
+        max-height: 429px;
 
     }
 }
@@ -18,19 +17,30 @@
     position: relative;
     min-width: 120px;
     min-height: 120px;
-    display: flex;
+
 
     .ribbon {
         position: absolute;
         top: 10px;
-        left: 0;
+        /* left: 14px; */
         font-size: 25px;
+
+        @media (max-width: 768px) {
+            left: 20px;
+        }
     }
 
     .movie-img {
         display: block;
-        width: 100%;
+        width: auto;
+        max-height: 429px;
         box-shadow: 2px 2px 5px black;
+
+        @media (max-width: 768px) {
+            max-height: fit-content;
+            width: 90%;
+            margin: 0 auto;
+        }
     }
 
     .loader {
@@ -41,14 +51,22 @@
 }
 
 .divider {
-    width: 100%;
+    width: 60%;
     background-color: rgba(54, 54, 54, 0.425);
     box-shadow: 2px 2px 5px black;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     gap: 3rem;
 
+    @media (max-width: 768px) {
+        width: 90%;
+        margin: 0 auto;
+
+
+    }
 }
 
 .movie-info {
@@ -69,7 +87,7 @@
     min-width: 120px;
     min-height: 120px;
     width: 100%;
-    padding: 20px;
+    padding: 1rem;
 
     .price {
         display: flex;
@@ -77,21 +95,16 @@
         gap: 10px;
         text-wrap: pretty;
     }
-
-
 }
 
 .addcart {
-    align-self: flex-end;
-    justify-self: flex-end;
     width: 50%;
     height: 44px;
-    margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.766);
     border-radius: 5px;
     font-size: 18px;
+    margin-bottom: 1rem;
     cursor: pointer;
-    margin-bottom: 15px;
 }
 
 .addcart:hover {

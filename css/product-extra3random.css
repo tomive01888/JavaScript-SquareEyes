@@ -2,6 +2,7 @@
     color: #ffffff;
     width: 90%;
     margin: 0 auto;
+    border-radius: 6;
 
     h2 {
         margin-bottom: 1rem;
@@ -24,6 +25,8 @@
     padding: 10px;
     margin: 0 auto;
     border: 1px solid rgba(121, 121, 121, 0.547);
+    border-radius: 6px;
+    box-shadow: 2px 2px 5px black;
 
     #loader-3 {
         grid-column: 1 /span 3;

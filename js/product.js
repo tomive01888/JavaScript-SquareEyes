@@ -40,10 +40,10 @@ async function getMovieDetail() {
 
     document.title = result.data.title
 
-    movieContainerImage.innerHTML = `<div>
+    movieContainerImage.innerHTML = `
                                       ${movieDetail.data.onSale ? `<div class='ribbon'>%</div>` : ""}
                                       <img class="movie-img" src="${movieDetail.data.image.url}" alt="${movieDetail.data.title}" />
-                                    </div>`
+                                    `
 
     movieContainerInfo.innerHTML = `<div class="text-box">
                                       <h1>${movieDetail.data.title} </h1>

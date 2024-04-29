@@ -1,230 +1,165 @@
 import { cartTotalQty, cartTotalPrice } from "./cart-counting.js";
 import { getFromStorage } from "./localstorage.js";
 
-let localStorageList = getFromStorage("movieitem")
+let localStorageList = getFromStorage("movieitem");
 
-let cartContainer = document.querySelector(".created-itemlist")
-const totalPriceCart = document.querySelector(".total-price")
-const amountTotalCart = document.querySelector(".amount-incart")
-const hrefToCheckout = document.querySelector(".go-to-check")
+let cartContainer = document.querySelector(".created-itemlist");
+const totalPriceCart = document.querySelector(".total-price");
+const amountTotalCart = document.querySelector(".amount-incart");
+const hrefToCheckout = document.querySelector(".go-to-check");
 
-amountTotalCart.textContent = "$" + cartTotalPrice(localStorageList)
-
+// amountTotalCart.textContent = "$" + cartTotalPrice(localStorageList);
 
 const localListWrapper = document.createElement("div");
-localListWrapper .classList.add('localListWrapper');
+localListWrapper.classList.add('localListWrapper');
 cartContainer.appendChild(localListWrapper);
 
+export function createCartItem(arr) {
+    localListWrapper.innerHTML = "";
 
-export function createCartItem(arr){   
-
-  localListWrapper.innerHTML = ""
-
-    if(arr.length === 0){
-
-      return []
+    if (arr.length === 0) {
+        return [];
     }
 
-    if(arr.length > 0){
-    
-      for(let i = 0; i < arr.length; i++){ 
-        
+    for (let i = 0; i < arr.length; i++) {
         const movieWrapper = document.createElement("div");
         movieWrapper.classList.add('single-product');
         localListWrapper.appendChild(movieWrapper);
-    
-        //
+
         const containerFirst = document.createElement("div");
         containerFirst.classList.add('leftContainer');
         movieWrapper.appendChild(containerFirst);
-    
+
         const movieImage = document.createElement("img");
         movieImage.src = arr[i].image;
         movieImage.alt = arr[i].title;
         containerFirst.appendChild(movieImage);
-    
+
         const movieTitle = document.createElement("p");
         movieTitle.textContent = arr[i].title;
         movieTitle.classList.add("title");
         containerFirst.appendChild(movieTitle);
-        
-        //
+
         const containerSecond = document.createElement("div");
         containerSecond.classList.add('rightContainer');
-        movieWrapper.appendChild(containerSecond);  
-        
-        //
+        movieWrapper.appendChild(containerSecond);
+
         const quantityWrapper = document.createElement("div");
         quantityWrapper.classList.add('qtyContainer');
         containerSecond.appendChild(quantityWrapper);
-    
+
         const buttonMinus = document.createElement("button");
         buttonMinus.classList.add('minus');
+        buttonMinus.type = "button"
         buttonMinus.textContent = "-";
         buttonMinus.dataset.action = 'decrease';
+        buttonMinus.dataset.title = arr[i].title;
         quantityWrapper.appendChild(buttonMinus);
-        buttonMinus.addEventListener("click", removeOneFromCart);    
-    
+
         const movieQnty = document.createElement("p");
         movieQnty.textContent = arr[i].quantity;
         movieQnty.dataset.quantity = arr[i].quantity;
         movieQnty.dataset.title = arr[i].title;
         quantityWrapper.appendChild(movieQnty);
-    
+
         const buttonPlus = document.createElement("button");
         buttonPlus.classList.add('plus');
+        buttonPlus.type = "button"
         buttonPlus.textContent = "+";
         buttonPlus.dataset.action = 'increase';
+        buttonPlus.dataset.title = arr[i].title;
         quantityWrapper.appendChild(buttonPlus);
-        buttonPlus.addEventListener("click", removeOneFromCart);
-    
-        //
+
         const moviePrice = document.createElement("p");
         moviePrice.textContent = "$" + Math.round(arr[i].price * arr[i].quantity * 100) / 100;
-        moviePrice.classList.add('price'); 
+        moviePrice.classList.add('price');
         containerSecond.appendChild(moviePrice);
-    
+
         const movieRemoveAll = document.createElement("button");
         movieRemoveAll.classList.add('remove-from-cart');
+        movieRemoveAll.type = "button"
         movieRemoveAll.textContent = "X";
-        movieRemoveAll.dataset.title = arr[i].title; 
+        movieRemoveAll.dataset.title = arr[i].title;
         containerSecond.appendChild(movieRemoveAll);
-        movieRemoveAll.addEventListener('click', deleteFromCart);   
-        
-      };
-
-      return localListWrapper;
-    
-    }else{
-
-        return [];
     }
+
+    return localListWrapper;
 }
 
-function removeOneFromCart(event){
+//////// Using event listener to run function cartAddOrRemove, depending on the identifier of class.
+//////// Meaning if the element has class containing the word 'minus' or 'plus' it activates the function.
+//////// Same goes for 'remove-from-cart'. 
 
-  const actionType = event.target.dataset.action;
+localListWrapper.addEventListener('click', function(event) {
+    const target = event.target;
+    if (target.classList.contains('minus') || target.classList.contains('plus')) {
+        cartAddOrRemove(event);
+    } else if (target.classList.contains('remove-from-cart')) {
+        deleteFromCart(event);
+    }
+});
 
-  const title = actionType === 'decrease' ? event.target.nextSibling.dataset.title : event.target.previousSibling.dataset.title;
-  const amount = actionType === 'decrease' ? Number(event.target.nextSibling.dataset.quantity) : Number(event.target.previousSibling.dataset.quantity) ;
-  switch (actionType) {
-    case 'increase':
+//////// Updates the cart value and total sum of cart.
 
-    localListWrapper.innerHTML = "";
+function updateCartUI() {
+    if (localStorageList.length === 0) {
+        hrefToCheckout.href = "";
+        cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
+    } else {
 
-    let findTitle = localStorageList.findIndex(movie => movie.title === title);
+        let html = createCartItem(localStorageList);
+        cartContainer.innerHTML = "";
+        cartContainer.appendChild(html);
+    }
 
-    localStorageList[findTitle].quantity++;
+    totalPriceCart.textContent = "$" + cartTotalPrice(localStorageList);
+    amountTotalCart.textContent = cartTotalQty(localStorageList);
+}
+
+////// Add or Remove qty of clicked item. Contains IF if item is reaching only 1 left.
+////// by using nested IF or ELSE, I can achieve increasing quantity according to actionType, 
+////// which relates back to when element is created above. 'Decrease' or 'Increase'
+
+function cartAddOrRemove(event) {
+    const target = event.target;
+    const actionType = target.dataset.action;
+    const title = target.dataset.title;
+    const itemIndex = localStorageList.findIndex(movie => movie.title === title);
+    const currentItem = localStorageList[itemIndex];
+
+    if (actionType === 'increase') {
+        currentItem.quantity++;
+    } else if (actionType === 'decrease') {
+        if (currentItem.quantity === 1) {
+            localStorageList.splice(itemIndex, 1);
+            cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
+        } else {
+            currentItem.quantity--;
+        }
+    }
 
     localStorage.setItem("movieitem", JSON.stringify(localStorageList));
 
-    let cartHtml = createCartItem(localStorageList);
-
-    cartContainer.appendChild(cartHtml);
- 
-
-    totalPriceCart.textContent = "$" + cartTotalPrice(localStorageList);
-    
-    amountTotalCart.textContent = cartTotalQty(localStorageList);
-      
-      break;
-
-    //
-    case 'decrease':
-    
-    if(localStorageList.length === 1 && amount === 1){
-
-      hrefToCheckout.href = "";
-      localListWrapper.innerHTML = "";
-
-      localStorage.clear("movieitem");
-      cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
-
-      totalPriceCart.textContent = "$" + 0;
-      amountTotalCart.textContent = 0 ;
-
-      return;
-
-    }
-
-    if(amount === 1){
-
-      localListWrapper.innerHTML = "";
-
-      const filterOut = localStorageList.filter(movie => movie.title !== title);
-
-      localStorageList = filterOut;
-
-      localStorage.setItem("movieitem", JSON.stringify(localStorageList));
-
-      const html = createCartItem(localStorageList);
-
-      cartContainer.appendChild(html);
-
-      totalPriceCart.textContent = "$" + cartTotalPrice(localStorageList);
-
-      amountTotalCart.textContent = cartTotalQty(localStorageList);
-
-      return ;
-
-    }
-
-      localListWrapper.innerHTML = "";
-
-      let findIndex = localStorageList.findIndex(movie => movie.title === title);
-
-      localStorageList[findIndex].quantity--;
-
-      localStorage.setItem("movieitem", JSON.stringify(localStorageList));
-
-      let html = createCartItem(localStorageList);
-
-      cartContainer.appendChild(html);
-
-      totalPriceCart.textContent = "$" + cartTotalPrice(localStorageList);
-
-      amountTotalCart.textContent = cartTotalQty(localStorageList);
-
-      break;   
-  }  
+    updateCartUI()
 }
 
-function deleteFromCart(event){
+////// The function that removes the item entirely without care if it's 1 or 10 inside of it.
 
-  localListWrapper.innerHTML = "";
+function deleteFromCart(event) {
 
-  const title = event.target.dataset.title;
+    const title = event.target.dataset.title;
 
-  if(localStorageList.length === 1){
+    const removeOne = localStorageList.filter(obj => obj.title !== title);
+    localStorageList = removeOne;
+    localStorage.setItem("movieitem", JSON.stringify(localStorageList));
 
-    hrefToCheckout.href = "";
-    cartContainer.innerHTML = "";
-
-    localStorage.clear("movieitem");
-    
-    cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
-
-    totalPriceCart.textContent = "$" + 0;
-
-    amountTotalCart.textContent = 0;
-
-    return
-  }
-
-  const removeOne = localStorageList.filter(obj => obj.title !== title);
-
-  localStorageList = removeOne;
-
-  localStorage.setItem("movieitem", JSON.stringify(localStorageList));
-
-  // cartContainer.innerHTML = createCartItem(localStorageList);
-
-  var HTML = createCartItem(localStorageList);
-
-  cartContainer.appendChild(HTML);
-
-  totalPriceCart.textContent = "$" + cartTotalPrice(localStorageList);
-
-  amountTotalCart.textContent = cartTotalQty(localStorageList);
-
+    if (localStorageList.length === 0) {
+        hrefToCheckout.href = "";
+        cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
+    } else {
+        let html = createCartItem(localStorageList);
+        cartContainer.innerHTML = "";
+        cartContainer.appendChild(html);
+    }
+    updateCartUI()
 }
