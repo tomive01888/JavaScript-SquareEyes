@@ -3,63 +3,60 @@ import { getMovies } from "./fetchAPI.js"
 import { getFromStorage } from "./localstorage.js"
 import { cartTotalQty } from "./cart-counting.js" 
 
-const moviesContainer = document.querySelector(".all-movies")
-const selectOption = document.querySelector(".genreSelector")
-const errorContainer = document.querySelector(".container")
-const amountTotalCart = document.querySelector(".amount-incart")
+const moviesContainer = document.querySelector(".all-movies");
+const selectOption = document.querySelector(".genreSelector");
+const errorContainer = document.querySelector(".container");
+const amountTotalCart = document.querySelector(".amount-incart");
 
-let movies = []
-let localStorageList = getFromStorage("movieitem")
+let movies = [];
+let localStorageList = getFromStorage("movieitem");
 
-const allMovies = await getMovies()
+async function initialize() {
+    try{
+        const allMovies = await getMovies();
+        amountTotalCart.textContent = cartTotalQty(localStorageList);
 
-amountTotalCart.textContent = cartTotalQty(localStorageList)
+        if(allMovies.error === false) {
+            movies = allMovies.movies.data;
+            showMovies(movies);
+        }else{
+            showError(allMovies.msg, allMovies.status);
 
-if(allMovies.error === false){ 
+        };
 
-  movies = allMovies.movies.data
+    }catch(error){
+        showError("Error fetching movies", 500);
 
-  console.log("target value", movies)
+    };
+};
 
-  moviesContainer.innerHTML = ""
-
- for(let i = 0; i < movies.length; i++){
-
-      moviesContainer.innerHTML +=  createHTML(movies[i])
-      
-     }
-
-} else{
-
-  errorContainer.innerHTML += `<div class="error">
-                <h1>${allMovies.msg}</h1>
-                <p>Error status: ${allMovies.status}</p>
-                <p>Something went wrong</p>
-
-    </div>`
+function showMovies(filteredMovies) {
+  moviesContainer.innerHTML = filteredMovies.map(createHTML).join('');
 }
 
+function showError(message, status) {
+  errorContainer.innerHTML = `<div class="error">
+        <h1>${message}</h1>
+        <p>Error status: ${status}</p>
+        <p>Something went wrong</p>
+  </div>`
+};
 
-selectOption.addEventListener("input", filteredByGenres)
 
+selectOption.addEventListener("input", filteredByGenres);
 function filteredByGenres(event) {  
+  const selectedGenre = event.target.value.toLowerCase();
 
- let selectedGenre = event.target.value
+  if(selectedGenre === "all") {
+    showMovies(movies);
 
- if(selectedGenre === "all"){
-  moviesContainer.innerHTML = ""
+  }else{
+    const filteredMovies = movies.filter(movie => movie.genre.toLowerCase() === selectedGenre);
+    showMovies(filteredMovies);
 
-  for (let i = 0; i < movies.length; i++){   
-    moviesContainer.innerHTML +=  createHTML(movies[i])
-  }
-  return 
- }
+  };
+};
 
- let filteredMovies = movies.filter(movie => movie.genre.toLowerCase() === selectedGenre.toLowerCase())
 
- moviesContainer.innerHTML = ""
+initialize();
 
- for (let i = 0; i < filteredMovies.length; i++){   
-    moviesContainer.innerHTML +=  createHTML(filteredMovies[i]) 
-  }
-}

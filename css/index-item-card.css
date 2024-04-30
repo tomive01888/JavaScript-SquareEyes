@@ -104,3 +104,19 @@
     text-decoration: line-through;
     font-size: 14px;
 }
+
+.isFavorite {
+    color: red;
+    font-family: "Lucida Sans Unicode", "Arial Unicode MS";
+    font-size: 20px;
+    position: absolute;
+
+
+}
+
+.notFavorite {
+    color: red;
+    font-family: "Lucida Sans Unicode", "Arial Unicode MS";
+    font-size: 28px;
+    position: absolute;
+}

@@ -8,8 +8,6 @@ const totalPriceCart = document.querySelector(".total-price");
 const amountTotalCart = document.querySelector(".amount-incart");
 const hrefToCheckout = document.querySelector(".go-to-check");
 
-// amountTotalCart.textContent = "$" + cartTotalPrice(localStorageList);
-
 const localListWrapper = document.createElement("div");
 localListWrapper.classList.add('localListWrapper');
 cartContainer.appendChild(localListWrapper);
