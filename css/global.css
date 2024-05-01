@@ -1,12 +1,12 @@
-@import url(./index-item-card.css);
+@import url(./all-itemcard.css);
 @import url(../product/product-extra3random.css);
-@import url(../product/product-singleinfo.css);
-@import url(../checkout/cart.css);
+@import url(../product/product.css);
+@import url(../checkout/checkout.css);
 @import url(../checkout/confirmation/confirmation.css);
 
 /* Not my work credits to Temani Afif*/
 @import url(./loading.css);
-@import url(./favorite-ribbon.css);
+@import url(./discountRibbon.css);
 
 * {
     padding: 0;

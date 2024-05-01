@@ -21,9 +21,9 @@
 
     .ribbon {
         position: absolute;
-        top: 10px;
-        /* left: 14px; */
-        font-size: 25px;
+        top: 3px;
+        left: 0px;
+        font-size: 18px;
 
         @media (max-width: 768px) {
             left: 20px;
