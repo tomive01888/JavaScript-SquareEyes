@@ -19,6 +19,8 @@ async function initialize() {
         if(allMovies.error === false) {
             movies = allMovies.movies.data;
             showMovies(movies);
+
+
         }else{
             showError(allMovies.msg, allMovies.status);
 
@@ -29,6 +31,7 @@ async function initialize() {
 
     };
 };
+
 
 function showMovies(filteredMovies) {
   moviesContainer.innerHTML = filteredMovies.map(createHTML).join('');

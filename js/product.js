@@ -1,5 +1,7 @@
 import { createSmallCard } from "./index-itemcard.js"
 import { cartTotalQty } from "./cart-counting.js"
+import { getFromStorage } from "./localstorage.js"
+
 
 const baseURL = "https://v2.api.noroff.dev/square-eyes/"
 
@@ -123,18 +125,6 @@ function itemInCart(arr, titleToCheck) {
     return true
   }
 };
-
-function getFromStorage(key) {
-  const savedInStorage = localStorage.getItem(key)
-
-  if (!savedInStorage) {
-    return []
-  }
-
-  return JSON.parse(savedInStorage)
-  
-};
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 async function filterOutCurrent(){
