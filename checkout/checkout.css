@@ -196,6 +196,9 @@
 }
 
 #purchased {
+    display: grid;
+    place-items: center;
+    color: white;
     width: 200px;
     height: 45px;
     border-radius: 5px;
@@ -205,10 +208,6 @@
     font-weight: 700;
     margin: 0 20px;
     cursor: pointer;
-
-    .go-to-check {
-        color: white;
-    }
 
 }
 
