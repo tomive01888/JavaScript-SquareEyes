@@ -1,5 +1,5 @@
-import { cartTotalQty, cartTotalPrice } from "./cart-counting.js";
-import { getFromStorage } from "./localstorage.js";
+import { cartTotalQty, cartTotalPrice } from "../Uilities/cart-counting.js";
+import { getFromStorage } from "../Uilities/localstorage.js";
 
 let localStorageList = getFromStorage("movieitem");
 
@@ -99,7 +99,7 @@ localListWrapper.addEventListener('click', function(event) {
 
 //////// Updates the cart value and total sum of cart.
 
-function updateCartUI() {
+function updateCart() {
     if (localStorageList.length === 0) {
         hrefToCheckout.href = "";
         cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
@@ -138,7 +138,7 @@ function cartAddOrRemove(event) {
 
     localStorage.setItem("movieitem", JSON.stringify(localStorageList));
 
-    updateCartUI()
+    updateCart()
 }
 
 ////// The function that removes the item entirely without care if it's 1 or 10 inside of it.
@@ -159,5 +159,5 @@ function deleteFromCart(event) {
         cartContainer.innerHTML = "";
         cartContainer.appendChild(html);
     }
-    updateCartUI()
+    updateCart()
 }

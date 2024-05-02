@@ -1,34 +1,34 @@
-import { createSmallCard } from "./index-itemcard.js"
-import { cartTotalQty } from "./cart-counting.js"
-import { getFromStorage } from "./localstorage.js"
+import { createSmallCard } from "./cardCreator/index-itemcard.js"
+import { cartTotalQty } from "./Uilities/cart-counting.js"
+import { getFromStorage } from "./Uilities/localstorage.js"
 
 
-const baseURL = "https://v2.api.noroff.dev/square-eyes/"
+const baseURL = "https://v2.api.noroff.dev/square-eyes/";
 
-const movieContainerImage = document.querySelector(".image-box")
-const movieContainerInfo = document.querySelector(".movie-info")
-const addCartBtn = document.querySelector(".addcart")
-const randomPickDiv = document.querySelector(".random-picks")
-const amountTotalCart = document.querySelector(".amount-incart")
+const movieContainerImage = document.querySelector(".image-box");
+const movieContainerInfo = document.querySelector(".movie-info");
+const addCartBtn = document.querySelector(".addcart");
+const randomPickDiv = document.querySelector(".random-picks");
+const amountTotalCart = document.querySelector(".amount-incart");
 
-let movieDetail = {}
+let movieDetail = {};
 
-let localStorageList = getFromStorage("movieitem")
+let localStorageList = getFromStorage("movieitem");
 
 const parameterString = window.location.search;
 
 const searchParameters = new URLSearchParams(parameterString);
 
-const movieId = searchParameters.get("movieid")
+const movieId = searchParameters.get("movieid");
 
 async function getMovieDetail() {
   try {
 
     await delayLoad(400);   
 
-    const completeMovieUrl = baseURL + movieId  
+    const completeMovieUrl = baseURL + movieId;
       
-    const req = await fetch(completeMovieUrl)
+    const req = await fetch(completeMovieUrl);
 
     if (!req.ok) {
 
@@ -36,16 +36,19 @@ async function getMovieDetail() {
 
     }
 
-    const result = await req.json() 
+    const result = await req.json();
 
-    movieDetail = result
+    movieDetail = result;
 
-    document.title = result.data.title
+    document.title = result.data.title;
+
+    const movieTitle = result.data.title ?? "movie";
+    document.getElementsByTagName('meta')['description'].content = `Information about ${movieTitle} price, genre, rating and more`;
 
     movieContainerImage.innerHTML = `
                                       ${movieDetail.data.onSale ? `<div class='ribbon'>%</div>` : ""}
                                       <img class="movie-img" src="${movieDetail.data.image.url}" alt="${movieDetail.data.title}" />
-                                    `
+                                    `;
 
     movieContainerInfo.innerHTML = `<div class="text-box">
                                       <h1>${movieDetail.data.title} </h1>
@@ -57,7 +60,7 @@ async function getMovieDetail() {
                                       <p>Rating: <i class="fa-solid fa-star"></i> ${movieDetail.data.rating} </p>
                                       <p>Release year: ${movieDetail.data.released}</p>
                                       <p>Genre: ${movieDetail.data.genre}</p>
-                                    </div>`
+                                    </div>`;
 
 
   }catch(error){
@@ -73,11 +76,9 @@ function delayLoad(ms) {
 getMovieDetail()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const totalCart = cartTotalQty(localStorageList)
-
-
-amountTotalCart.textContent = totalCart
-addCartBtn.addEventListener("click", addToCart)
+const totalCart = cartTotalQty(localStorageList);
+amountTotalCart.textContent = totalCart;
+addCartBtn.addEventListener("click", addToCart);
 function addToCart(){
 
   let quantity = 0
@@ -87,31 +88,31 @@ function addToCart(){
     title: movieDetail.data.title,
     price: movieDetail.data.onSale ? movieDetail.data.discountedPrice : movieDetail.data.price,
     quantity: quantity,
-  }
+  };
 
-  const isMovieInCart = itemInCart(localStorageList, movieDetail.data.title)
+  const isMovieInCart = itemInCart(localStorageList, movieDetail.data.title);
 
   if(!isMovieInCart){
 
-    localStorageList.push({...movieToAdd, quantity:quantity+1})
+    localStorageList.push({...movieToAdd, quantity:quantity+1});
 
-    localStorage.setItem("movieitem", JSON.stringify(localStorageList)) 
+    localStorage.setItem("movieitem", JSON.stringify(localStorageList));
 
-    const totalCart = cartTotalQty(localStorageList)
+    const totalCart = cartTotalQty(localStorageList);
 
-    amountTotalCart.textContent = totalCart
+    amountTotalCart.textContent = totalCart;
 
   } 
   else {    
-    const findIndex = localStorageList.findIndex(movie => movie.title === movieDetail.data.title)
+    const findIndex = localStorageList.findIndex(movie => movie.title === movieDetail.data.title);
 
-    localStorageList[findIndex].quantity++
+    localStorageList[findIndex].quantity++;
 
-    localStorage.setItem("movieitem", JSON.stringify(localStorageList))
+    localStorage.setItem("movieitem", JSON.stringify(localStorageList));
 
-    const totalCart = cartTotalQty(localStorageList)
+    const totalCart = cartTotalQty(localStorageList);
 
-    amountTotalCart.textContent = totalCart
+    amountTotalCart.textContent = totalCart;
   }
 };
 
@@ -119,7 +120,7 @@ function addToCart(){
 
 function itemInCart(arr, titleToCheck) {
 
-   const found = arr.some((item) => item.title === titleToCheck )
+   const found = arr.some((item) => item.title === titleToCheck);
 
   if (found) {
     return true
@@ -128,61 +129,56 @@ function itemInCart(arr, titleToCheck) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 async function filterOutCurrent(){
-
-
   await delay(200);
-
-  const req = await fetch(baseURL)
+  const req = await fetch(baseURL);
  
   if (req.ok){
-   const movieDetail = await req.json()
+   const movieDetail = await req.json();
  
-   const movies = movieDetail.data 
+   const movies = movieDetail.data;
    
-   randomPickDiv.innerHTML = ""
+   randomPickDiv.innerHTML = "";
 
-   const newFilteredWithoutCurrent = movies.filter(movie => movie.id !== movieId)
+   const newFilteredWithoutCurrent = movies.filter(movie => movie.id !== movieId);
 
    function getThreeRandomNumbers(){
 
-    let max = newFilteredWithoutCurrent.length
-    let randomNumArr = []
-    let numberOfDisplayedMovies = 3
+    let max = newFilteredWithoutCurrent.length;
+    let randomNumArr = [];
+    let numberOfDisplayedMovies = 3;
 
     for (let i = 0; i < numberOfDisplayedMovies; i++){  
       
-      let num = Math.floor(Math.random() * max)
+      let num = Math.floor(Math.random() * max);
 
       if(randomNumArr.indexOf(num) === -1){
-        randomNumArr.push(num)
+        randomNumArr.push(num);
 
-      } else i--
-
-    }
+      } else {
+          i--
+      }
+    };
 
     return randomNumArr    
-   }
+   };
    
-   const threeRandomNumbers = getThreeRandomNumbers()
+   const threeRandomNumbers = getThreeRandomNumbers();
 
     for ( let i = 0; i < threeRandomNumbers.length; i++){
 
-      let indexFromRandomArr =  threeRandomNumbers[i] 
+      let indexFromRandomArr =  threeRandomNumbers[i];
 
-      randomPickDiv.innerHTML += createSmallCard(newFilteredWithoutCurrent[indexFromRandomArr])
+      randomPickDiv.innerHTML += createSmallCard(newFilteredWithoutCurrent[indexFromRandomArr]);
     }
   } else{
  
-   randomPickDiv.innerHTML = ""
- 
-   randomPickDiv.innerHTML += `
- 
-   <div class="error">
-               <p>Error: while fetching data</p>
-               <p>Status code: ${req.status} </p>
-   </div>`   
-  }  
-}
+   randomPickDiv.innerHTML = ""; 
+   randomPickDiv.innerHTML += `<div class="error">
+                                 <p>Error: while fetching data</p>
+                                 <p>Status code: ${req.status} </p>
+                               </div>` 
+  };
+};
 
 function delay(ms) {
     
@@ -190,4 +186,3 @@ function delay(ms) {
 }
 
 filterOutCurrent();
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

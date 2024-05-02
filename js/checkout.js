@@ -1,6 +1,6 @@
-import { cartTotalQty, cartTotalPrice } from "./cart-counting.js"
-import { createCartItem } from "./cart-itemcard.js"
-import { getFromStorage } from "./localstorage.js"
+import { cartTotalQty, cartTotalPrice } from "./Uilities/cart-counting.js"
+import { createCartItem } from "./cardCreator/checkout-itemcard.js"
+import { getFromStorage } from "./Uilities/localstorage.js"
 
 let localStorageList = getFromStorage("movieitem")
 
@@ -8,9 +8,7 @@ let cartContainer = document.querySelector(".created-itemlist")
 const priceDisplay = document.querySelector(".total-price")
 const amountTotalCart = document.querySelector(".amount-incart")
 
-const totalCart = cartTotalQty(localStorageList)
-
-amountTotalCart.textContent = totalCart
+amountTotalCart.textContent = cartTotalQty(localStorageList)
 
 if(localStorageList.length > 0){
 
@@ -20,9 +18,7 @@ if(localStorageList.length > 0){
   cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
 }
 
-
 priceDisplay.textContent ="$" + cartTotalPrice(localStorageList);
-
 
 const hrefToCheckout = document.querySelector(".go-to-check");
 const purchaseBtn = document.querySelector("#purchased");
@@ -34,6 +30,8 @@ function confirmOrder(){
 
     hrefToCheckout.href = "./confirmation/index.html";
     localStorage.removeItem("movieitem");
+    amountTotalCart.textContent = "0";
+
 
   }else{
     

@@ -1,7 +1,7 @@
-import { createHTML } from "./index-itemcard.js"
-import { getMovies } from "./fetchAPI.js"
-import { getFromStorage } from "./localstorage.js"
-import { cartTotalQty } from "./cart-counting.js" 
+import { createHTML } from "./cardCreator/index-itemcard.js"
+import { getMovies } from "./Uilities/fetchAPI.js"
+import { getFromStorage } from "./Uilities/localstorage.js"
+import { cartTotalQty } from "./Uilities/cart-counting.js" 
 
 const moviesContainer = document.querySelector(".all-movies");
 const selectOption = document.querySelector(".genreSelector");
@@ -11,7 +11,7 @@ const amountTotalCart = document.querySelector(".amount-incart");
 let movies = [];
 let localStorageList = getFromStorage("movieitem");
 
-async function initialize() {
+async function theSetup() {
     try{
         const allMovies = await getMovies();
         amountTotalCart.textContent = cartTotalQty(localStorageList);
@@ -39,10 +39,10 @@ function showMovies(filteredMovies) {
 
 function showError(message, status) {
   errorContainer.innerHTML = `<div class="error">
-        <h1>${message}</h1>
-        <p>Error status: ${status}</p>
-        <p>Something went wrong</p>
-  </div>`
+                                    <h1>${message}</h1>
+                                    <p>Error status: ${status}</p>
+                                    <p>Something went wrong</p>
+                              </div>`
 };
 
 
@@ -61,5 +61,5 @@ function filteredByGenres(event) {
 };
 
 
-initialize();
+theSetup();
 

@@ -2,9 +2,7 @@ const amountTotalCart = document.querySelector(".amount-incart")
 const todaysDate = document.querySelector(".date")
 const randomValue = document.querySelector(".random-value")
 
-const totalCart = "0"
-
-amountTotalCart.textContent = totalCart
+amountTotalCart.textContent = "0"
 
 let date = new Date();
 
