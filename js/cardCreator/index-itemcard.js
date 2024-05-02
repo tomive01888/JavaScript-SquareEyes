@@ -7,7 +7,7 @@ export function createHTML(movie) {
                   </div>
       
                   <img src="${movie.image.url}" alt="${movie.title}"/>
-                  <h3 class="title">${movie.title}</h3>
+                  <h2 class="title">${movie.title}</h2>
                   ${movie.onSale ? `<div class='ribbon'>%</div>` : ""}                  
                 </a>`
 

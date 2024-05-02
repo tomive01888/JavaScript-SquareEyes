@@ -175,6 +175,12 @@ footer {
     }
 }
 
+#genre-container {
+    display: grid;
+    row-gap: 5px;
+
+}
+
 .genreSelector {
     min-width: 220px;
     width: 100%;
