@@ -21,7 +21,7 @@ if(localStorageList.length > 0){
 priceDisplay.textContent ="$" + cartTotalPrice(localStorageList);
 
 const hrefToCheckout = document.querySelector(".go-to-check");
-const purchaseBtn = document.querySelector("#purchased");
+const purchaseBtn = document.getElementById("purchased");
 
 purchaseBtn.addEventListener('click', confirmOrder);
 
