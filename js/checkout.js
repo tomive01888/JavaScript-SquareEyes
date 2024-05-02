@@ -1,14 +1,17 @@
-import { cartTotalQty, cartTotalPrice } from "./Uilities/cart-counting.js"
-import { createCartItem } from "./cardCreator/checkout-itemcard.js"
-import { getFromStorage } from "./Uilities/localstorage.js"
+import { cartTotalQty, cartTotalPrice } from "./Uilities/cart-counting.js";
+import { createCartItem } from "./cardCreator/checkout-itemcard.js";
+import { getFromStorage } from "./Uilities/localstorage.js";
 
-let localStorageList = getFromStorage("movieitem")
+let localStorageList = getFromStorage("movieitem");
 
-let cartContainer = document.querySelector(".created-itemlist")
-const priceDisplay = document.querySelector(".total-price")
-const amountTotalCart = document.querySelector(".amount-incart")
+let cartContainer = document.querySelector(".created-itemlist");
+const priceDisplay = document.querySelector(".total-price");
+const amountTotalCart = document.querySelector(".amount-incart");
+const purchaseBtn = document.getElementById("purchased");
 
-amountTotalCart.textContent = cartTotalQty(localStorageList)
+
+
+amountTotalCart.textContent = cartTotalQty(localStorageList);
 
 if(localStorageList.length > 0){
 
@@ -20,23 +23,21 @@ if(localStorageList.length > 0){
 
 priceDisplay.textContent ="$" + cartTotalPrice(localStorageList);
 
-const hrefToCheckout = document.querySelector(".go-to-check");
-const purchaseBtn = document.getElementById("purchased");
+if(localStorageList.length === 0){
+  purchaseBtn.style.display = "none";
+}
 
 purchaseBtn.addEventListener('click', confirmOrder);
-
 function confirmOrder(){
-  if(localStorageList.length >= 1){
+  let storageList = getFromStorage("movieitem")
 
-    hrefToCheckout.href = "./confirmation/index.html";
+  if(storageList.length > 0){
+
     localStorage.removeItem("movieitem");
     amountTotalCart.textContent = "0";
+    window.location = "./confirmation/index.html";
 
 
-  }else{
-    
-    hrefToCheckout.href = "";
-   
   }
 }  
 

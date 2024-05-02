@@ -211,10 +211,6 @@
     background-color: grey;
 }
 
-#purchased:active {
-    background-color: #4b4b4b;
-}
-
 .empty {
     display: grid;
     place-items: center;

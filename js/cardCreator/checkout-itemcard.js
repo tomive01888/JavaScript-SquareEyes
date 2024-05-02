@@ -7,6 +7,8 @@ let cartContainer = document.querySelector(".created-itemlist");
 const totalPriceCart = document.querySelector(".total-price");
 const amountTotalCart = document.querySelector(".amount-incart");
 const hrefToCheckout = document.querySelector(".go-to-check");
+const purchaseBtn = document.getElementById("purchased");
+
 
 const localListWrapper = document.createElement("div");
 localListWrapper.classList.add('localListWrapper');
@@ -103,6 +105,7 @@ function updateCart() {
     if (localStorageList.length === 0) {
         hrefToCheckout.href = "";
         cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
+        purchaseBtn.style.display = "none";
     } else {
 
         let html = createCartItem(localStorageList);
@@ -129,9 +132,9 @@ function cartAddOrRemove(event) {
         currentItem.quantity++;
     } else if (actionType === 'decrease') {
         if (currentItem.quantity === 1) {
-            localStorageList.splice(itemIndex, 1);
+            localStorageList.splice(itemIndex, 1);            
             cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
-        } else {
+        } else {            
             currentItem.quantity--;
         }
     }
