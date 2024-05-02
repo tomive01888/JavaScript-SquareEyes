@@ -6,8 +6,8 @@ let localStorageList = getFromStorage("movieitem");
 let cartContainer = document.querySelector(".created-itemlist");
 const totalPriceCart = document.querySelector(".total-price");
 const amountTotalCart = document.querySelector(".amount-incart");
-const hrefToCheckout = document.querySelector(".go-to-check");
 const purchaseBtn = document.getElementById("purchased");
+const disabledBtn = document.getElementById("disabled");
 
 
 const localListWrapper = document.createElement("div");
@@ -103,9 +103,9 @@ localListWrapper.addEventListener('click', function(event) {
 
 function updateCart() {
     if (localStorageList.length === 0) {
-        hrefToCheckout.href = "";
         cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
         purchaseBtn.style.display = "none";
+        disabledBtn.style.display = "grid";
     } else {
 
         let html = createCartItem(localStorageList);
@@ -155,7 +155,6 @@ function deleteFromCart(event) {
     localStorage.setItem("movieitem", JSON.stringify(localStorageList));
 
     if (localStorageList.length === 0) {
-        hrefToCheckout.href = "";
         cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
     } else {
         let html = createCartItem(localStorageList);

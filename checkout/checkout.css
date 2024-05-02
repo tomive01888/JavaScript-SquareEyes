@@ -223,3 +223,18 @@
     box-shadow: 2px 2px 5px black;
 
 }
+
+#disabled {
+    display: none;
+    place-items: center;
+    color: white;
+    width: 200px;
+    height: 45px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px black;
+    background-color: rgb(69, 69, 69);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 20px;
+
+}

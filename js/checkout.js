@@ -8,6 +8,7 @@ let cartContainer = document.querySelector(".created-itemlist");
 const priceDisplay = document.querySelector(".total-price");
 const amountTotalCart = document.querySelector(".amount-incart");
 const purchaseBtn = document.getElementById("purchased");
+const disabledBtn = document.getElementById("disabled");
 
 
 
@@ -24,6 +25,8 @@ if(localStorageList.length > 0){
 priceDisplay.textContent ="$" + cartTotalPrice(localStorageList);
 
 if(localStorageList.length === 0){
+  disabledBtn.style.display = "grid";
+
   purchaseBtn.style.display = "none";
 }
 
@@ -36,7 +39,6 @@ function confirmOrder(){
     localStorage.removeItem("movieitem");
     amountTotalCart.textContent = "0";
     window.location = "./confirmation/index.html";
-
 
   }
 }  
