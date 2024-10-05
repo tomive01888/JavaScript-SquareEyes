@@ -1,7 +1,6 @@
-import { createSmallCard } from "./cardCreator/index-itemcard.js"
-import { cartTotalQty } from "./Uilities/cart-counting.js"
-import { getFromStorage } from "./Uilities/localstorage.js"
-
+import { createSmallCard } from "./cardCreator/index-itemcard.js";
+import { cartTotalQty } from "./Uilities/cart-counting.js";
+import { getFromStorage } from "./Uilities/localstorage.js";
 
 const baseURL = "https://v2.api.noroff.dev/square-eyes/";
 
@@ -16,24 +15,19 @@ let movieDetail = {};
 let localStorageList = getFromStorage("movieitem");
 
 const parameterString = window.location.search;
-
 const searchParameters = new URLSearchParams(parameterString);
-
 const movieId = searchParameters.get("movieid");
 
 async function getMovieDetail() {
   try {
-
-    await delayLoad(400);   
+    await delayLoad(400);
 
     const completeMovieUrl = baseURL + movieId;
-      
+
     const req = await fetch(completeMovieUrl);
 
     if (!req.ok) {
-
-      throw new Error('Failed to fetch movie details');
-
+      throw new Error("Failed to fetch movie details");
     }
 
     const result = await req.json();
@@ -43,47 +37,53 @@ async function getMovieDetail() {
     document.title = result.data.title;
 
     const movieTitle = result.data.title ?? "movie";
-    document.getElementsByTagName('meta')['description'].content = `Information about ${movieTitle} price, genre, rating and more`;
+    document.getElementsByTagName("meta")[
+      "description"
+    ].content = `Information about ${movieTitle} price, genre, rating and more`;
 
     movieContainerImage.innerHTML = `
                                       ${movieDetail.data.onSale ? `<div class='ribbon'>%</div>` : ""}
-                                      <img class="movie-img" src="${movieDetail.data.image.url}" alt="${movieDetail.data.title}" />
+                                      <img class="movie-img" src="${movieDetail.data.image.url}" alt="${
+      movieDetail.data.title
+    }" />
                                     `;
 
     movieContainerInfo.innerHTML = `<div class="text-box">
                                       <h1>${movieDetail.data.title} </h1>
                                       <div class="price">
-                                        <p class="current-price">$ ${movieDetail.data.onSale ? movieDetail.data.discountedPrice : movieDetail.data.price}</p>
-                                        <p class="${movieDetail.data.onSale ? "on-sale" : ""}">${movieDetail.data.onSale ? movieDetail.data.price : ""}</p>
+                                        <p class="current-price">$ ${
+                                          movieDetail.data.onSale
+                                            ? movieDetail.data.discountedPrice
+                                            : movieDetail.data.price
+                                        }</p>
+                                        <p class="${movieDetail.data.onSale ? "on-sale" : ""}">${
+      movieDetail.data.onSale ? movieDetail.data.price : ""
+    }</p>
                                       </div>
                                       <p>Description: ${movieDetail.data.description} </i></p>
                                       <p>Rating: <i class="fa-solid fa-star"></i> ${movieDetail.data.rating} </p>
                                       <p>Release year: ${movieDetail.data.released}</p>
                                       <p>Genre: ${movieDetail.data.genre}</p>
                                     </div>`;
-
-
-  }catch(error){
-
-    console.error('Error fetching movie details:', error);
+  } catch (error) {
+    console.error("Error fetching movie details:", error);
   }
 }
 
-function delayLoad(ms) {    
-  return new Promise(resolve => setTimeout(resolve, ms));
+function delayLoad(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-getMovieDetail()
+getMovieDetail();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const totalCart = cartTotalQty(localStorageList);
 amountTotalCart.textContent = totalCart;
 addCartBtn.addEventListener("click", addToCart);
-function addToCart(){
+function addToCart() {
+  let quantity = 0;
 
-  let quantity = 0
-
-  const movieToAdd = { 
+  const movieToAdd = {
     image: movieDetail.data.image.url,
     title: movieDetail.data.title,
     price: movieDetail.data.onSale ? movieDetail.data.discountedPrice : movieDetail.data.price,
@@ -92,19 +92,16 @@ function addToCart(){
 
   const isMovieInCart = itemInCart(localStorageList, movieDetail.data.title);
 
-  if(!isMovieInCart){
-
-    localStorageList.push({...movieToAdd, quantity:quantity+1});
+  if (!isMovieInCart) {
+    localStorageList.push({ ...movieToAdd, quantity: quantity + 1 });
 
     localStorage.setItem("movieitem", JSON.stringify(localStorageList));
 
     const totalCart = cartTotalQty(localStorageList);
 
     amountTotalCart.textContent = totalCart;
-
-  } 
-  else {    
-    const findIndex = localStorageList.findIndex(movie => movie.title === movieDetail.data.title);
+  } else {
+    const findIndex = localStorageList.findIndex((movie) => movie.title === movieDetail.data.title);
 
     localStorageList[findIndex].quantity++;
 
@@ -114,75 +111,66 @@ function addToCart(){
 
     amountTotalCart.textContent = totalCart;
   }
-};
-
-
+}
 
 function itemInCart(arr, titleToCheck) {
-
-   const found = arr.some((item) => item.title === titleToCheck);
+  const found = arr.some((item) => item.title === titleToCheck);
 
   if (found) {
-    return true
+    return true;
   }
-};
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-async function filterOutCurrent(){
+async function filterOutCurrent() {
   await delay(200);
   const req = await fetch(baseURL);
- 
-  if (req.ok){
-   const movieDetail = await req.json();
- 
-   const movies = movieDetail.data;
-   
-   randomPickDiv.innerHTML = "";
 
-   const newFilteredWithoutCurrent = movies.filter(movie => movie.id !== movieId);
+  if (req.ok) {
+    const movieDetail = await req.json();
 
-   function getThreeRandomNumbers(){
+    const movies = movieDetail.data;
 
-    let max = newFilteredWithoutCurrent.length;
-    let randomNumArr = [];
-    let numberOfDisplayedMovies = 3;
+    randomPickDiv.innerHTML = "";
 
-    for (let i = 0; i < numberOfDisplayedMovies; i++){  
-      
-      let num = Math.floor(Math.random() * max);
+    const newFilteredWithoutCurrent = movies.filter((movie) => movie.id !== movieId);
 
-      if(randomNumArr.indexOf(num) === -1){
-        randomNumArr.push(num);
+    function getThreeRandomNumbers() {
+      let max = newFilteredWithoutCurrent.length;
+      let randomNumArr = [];
+      let numberOfDisplayedMovies = 3;
 
-      } else {
-          i--
+      for (let i = 0; i < numberOfDisplayedMovies; i++) {
+        let num = Math.floor(Math.random() * max);
+
+        if (randomNumArr.indexOf(num) === -1) {
+          randomNumArr.push(num);
+        } else {
+          i--;
+        }
       }
-    };
 
-    return randomNumArr    
-   };
-   
-   const threeRandomNumbers = getThreeRandomNumbers();
+      return randomNumArr;
+    }
 
-    for ( let i = 0; i < threeRandomNumbers.length; i++){
+    const threeRandomNumbers = getThreeRandomNumbers();
 
-      let indexFromRandomArr =  threeRandomNumbers[i];
+    for (let i = 0; i < threeRandomNumbers.length; i++) {
+      let indexFromRandomArr = threeRandomNumbers[i];
 
       randomPickDiv.innerHTML += createSmallCard(newFilteredWithoutCurrent[indexFromRandomArr]);
     }
-  } else{
- 
-   randomPickDiv.innerHTML = ""; 
-   randomPickDiv.innerHTML += `<div class="error">
+  } else {
+    randomPickDiv.innerHTML = "";
+    randomPickDiv.innerHTML += `<div class="error">
                                  <p>Error: while fetching data</p>
                                  <p>Status code: ${req.status} </p>
-                               </div>` 
-  };
-};
+                               </div>`;
+  }
+}
 
 function delay(ms) {
-    
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 filterOutCurrent();

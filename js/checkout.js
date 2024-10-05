@@ -10,39 +10,29 @@ const amountTotalCart = document.querySelector(".amount-incart");
 const purchaseBtn = document.getElementById("purchased");
 const disabledBtn = document.getElementById("disabled");
 
-
-
 amountTotalCart.textContent = cartTotalQty(localStorageList);
 
-if(localStorageList.length > 0){
-
+if (localStorageList.length > 0) {
   cartContainer = createCartItem(localStorageList);
-
-}else{
+} else {
   cartContainer.innerHTML = "<p class='empty'>It seems your cart is empty</p>";
 }
 
-priceDisplay.textContent ="$" + cartTotalPrice(localStorageList);
+priceDisplay.textContent = "$" + cartTotalPrice(localStorageList);
 
-if(localStorageList.length === 0){
+if (localStorageList.length === 0) {
   disabledBtn.style.display = "grid";
 
   purchaseBtn.style.display = "none";
 }
 
-purchaseBtn.addEventListener('click', confirmOrder);
-function confirmOrder(){
-  let storageList = getFromStorage("movieitem")
+purchaseBtn.addEventListener("click", confirmOrder);
+function confirmOrder() {
+  let storageList = getFromStorage("movieitem");
 
-  if(storageList.length > 0){
-
+  if (storageList.length > 0) {
     localStorage.removeItem("movieitem");
     amountTotalCart.textContent = "0";
     window.location = "./confirmation/index.html";
-
   }
-}  
-
-
-
-
+}
