@@ -2,13 +2,12 @@
 
 ![image](https://github.com/user-attachments/assets/a9e67770-7a0a-4a67-82da-185501b5e170)
 
-A simple overview of the use/purpose of the project.
-
 ## Description
 
 Client:
 - Online store: SquareEyes
   - Sells movies and series online
+
  
 ## Brief:
 Using your new skills writing JavaScript, create an interactive online store to display product from an API endpoint. Use the provided API url to display products in HTML and allow users to create a basket of items.
@@ -20,6 +19,7 @@ This was our first assignment with the use of JS. With our time limit we had to 
 Key points to this task:
 - Handle increase and decrease of quantity in basket
 - Allow user to view basket and remove or reduce quantity
+- User can "purchase" taking them to a confirmation page
 
 #
 
