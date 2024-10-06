@@ -23,12 +23,6 @@ Key points to this task:
 
 #
 
-## Built With
-[<img title="Figma" height="48px" width="48px" alt="Icone VS-Code" src="https://skillicons.dev/icons?i=figma"/>](https://www.figma.com/)
-[<img title="HTML" height="48px" width="48px" alt="Icone VS-Code" src="https://skillicons.dev/icons?i=html"/>](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[<img title="CSS" height="48px" width="48px" alt="Icone VS-Code" src="https://skillicons.dev/icons?i=css"/>](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[<img title="JavaScript" height="48px" width="48px" alt="Icone VS-Code" src="https://skillicons.dev/icons?i=js"/>](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-
 ## Getting Started
 
 ### Installing
@@ -57,3 +51,15 @@ To run the app, run the following commands:
 npm run start
 ```
 #
+
+### Built With
+[<img title="Figma" height="48px" width="48px" alt="Icone VS-Code" src="https://skillicons.dev/icons?i=figma"/>](https://www.figma.com/)
+[<img title="HTML" height="48px" width="48px" alt="Icone VS-Code" src="https://skillicons.dev/icons?i=html"/>](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[<img title="CSS" height="48px" width="48px" alt="Icone VS-Code" src="https://skillicons.dev/icons?i=css"/>](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[<img title="JavaScript" height="48px" width="48px" alt="Icone VS-Code" src="https://skillicons.dev/icons?i=js"/>](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+#
+
+#### Contact
+
+[My LinkedIn]()
