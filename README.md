@@ -1,4 +1,4 @@
-# Your project title
+# SQUARE EYES
 
 ![image](https://github.com/user-attachments/assets/a9e67770-7a0a-4a67-82da-185501b5e170)
 
