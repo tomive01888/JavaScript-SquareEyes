@@ -1,10 +1,13 @@
-# SQUARE EYES
+# <img src="https://github.com/user-attachments/assets/d0353669-cdf7-4f2e-a843-975242803b44" alt="SquareEye" width="34" height="34"> <img src="https://github.com/user-attachments/assets/d0353669-cdf7-4f2e-a843-975242803b44" alt="SquareEye" width="34" height="34"> SQUARE EYES
 
 ![image](https://github.com/user-attachments/assets/a9e67770-7a0a-4a67-82da-185501b5e170)
 
-## Description
+## Description!
 
-Client:
+
+Client: 
+
+
 - Online store: SquareEyes
   - Sells movies and series online
 
