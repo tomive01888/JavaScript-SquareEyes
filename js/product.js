@@ -20,8 +20,6 @@ const movieId = searchParameters.get("movieid");
 
 async function getMovieDetail() {
   try {
-    await delayLoad(400);
-
     const completeMovieUrl = baseURL + movieId;
 
     const req = await fetch(completeMovieUrl);
@@ -68,10 +66,6 @@ async function getMovieDetail() {
   } catch (error) {
     console.error("Error fetching movie details:", error);
   }
-}
-
-function delayLoad(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 getMovieDetail();
