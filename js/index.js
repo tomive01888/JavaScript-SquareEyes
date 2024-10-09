@@ -1,4 +1,4 @@
-import { createHTML } from "./cardCreator/index-itemcard.js";
+import { createSmallCard } from "./cardCreator/index-itemcard.js";
 import { getMovies } from "./Uilities/fetchAPI.js";
 import { getFromStorage } from "./Uilities/localstorage.js";
 import { cartTotalQty } from "./Uilities/cart-counting.js";
@@ -23,12 +23,13 @@ async function theSetup() {
       showError(allMovies.msg, allMovies.status);
     }
   } catch (error) {
-    showError("Error fetching movies", 500);
+    // showError("Error fetching movies", 500);
+    console.error("What went wrong?", error);
   }
 }
 
 function showMovies(filteredMovies) {
-  moviesContainer.innerHTML = filteredMovies.map(createHTML).join("");
+  moviesContainer.innerHTML = filteredMovies.map(createSmallCard).join("");
 }
 
 function showError(message, status) {

@@ -3,19 +3,22 @@ const baseURL = "https://v2.api.noroff.dev/square-eyes/";
 export async function getMovies() {
   try {
     showLoader();
-    const req = await fetch(baseURL);
-    await delay(1000);
+    const response = await fetch(baseURL);
+    await delay(800);
 
-    if (!req.ok) {
-      throw new Error("Error fetching API" + req.status);
+    if (!response.ok) {
+      const errorData = await response.json();
+      const error = new Error(`${errorData.statusCode}: ${errorData.status}. ${errorData.errors[0].message}`);
+      error.response = response;
+      throw error;
     }
 
-    const result = await req.json();
+    const result = await response.json();
     hideLoader();
     return { movies: result, error: false };
   } catch (error) {
     hideLoader();
-    return { movies: [], error: true, msg: error.message, status: error.status || 500 };
+    console.error("What went wrong?", error);
   }
 }
 

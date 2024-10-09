@@ -1,4 +1,4 @@
-export function createHTML(movie) {
+export function createSmallCard(movie) {
   let html = `
                 <a class="movies-card" href="./product/index.html?movieid=${movie.id}">
                   <div class="flex-sale">
