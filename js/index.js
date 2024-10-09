@@ -1,4 +1,4 @@
-import { createSmallCard } from "./cardCreator/index-itemcard.js";
+import { createHTML } from "./cardCreator/index-itemcard.js";
 import { getMovies } from "./Uilities/fetchAPI.js";
 import { getFromStorage } from "./Uilities/localstorage.js";
 import { cartTotalQty } from "./Uilities/cart-counting.js";
@@ -29,7 +29,7 @@ async function theSetup() {
 }
 
 function showMovies(filteredMovies) {
-  moviesContainer.innerHTML = filteredMovies.map(createSmallCard).join("");
+  moviesContainer.innerHTML = filteredMovies.map(createHTML).join("");
 }
 
 function showError(message, status) {
